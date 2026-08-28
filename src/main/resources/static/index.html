@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melati Santina Utama | Pusat Pelatihan Keterampilan Vokasi Profesional</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+ 
+    <style>
+        :root {
+            --primary-color: #091026;
+            --primary-light: #162247;
+            --accent-gold: #d4af37;
+            --accent-gold-hover: #e5c158;
+            --bg-light: #f8fafc;
+        }
+ 
+        html { scroll-behavior: smooth; }
+ 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+ 
+        /* ===== Subtle floating decorative shapes ===== */
+        .float-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.25;
+            pointer-events: none;
+            animation: floatY 7s ease-in-out infinite;
+        }
+        @keyframes floatY {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-22px) translateX(10px) rotate(8deg); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(-6deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.35); }
+            50% { box-shadow: 0 0 0 14px rgba(212, 175, 55, 0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -300px 0; }
+            100% { background-position: 300px 0; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+ 
+        /* Top Bar */
+        .top-bar {
+            background-color: #050a18;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+ 
+        /* Navbar Modern */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+            padding: 14px 0;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        .navbar-brand:hover img {
+            transform: rotate(-6deg) scale(1.08);
+        }
+        .nav-link {
+            color: #cbd5e1 !important;
+            font-weight: 500;
+            padding: 8px 14px !important;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 2px;
+            height: 2px;
+            background: var(--accent-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-gold) !important;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            transform: scaleX(1);
+        }
+ 
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #091026 0%, #17244a 100%);
+            color: white;
+            padding: 130px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-section .badge.animate-in {
+            animation: fadeInUp 0.8s ease both;
+        }
+        .hero-section h1 {
+            animation: fadeInUp 0.9s ease 0.15s both;
+        }
+        .hero-section .lead {
+            animation: fadeInUp 0.9s ease 0.3s both;
+        }
+        .hero-section .hero-btns {
+            animation: fadeInUp 0.9s ease 0.45s both;
+        }
+        .text-gold {
+            color: var(--accent-gold);
+        }
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: #091026;
+            font-weight: 700;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -60%;
+            width: 40%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+        .btn-gold:hover::before { left: 130%; }
+        .btn-gold:hover {
+            background-color: var(--accent-gold-hover);
+            color: #091026;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        .btn-outline-light {
+            transition: all 0.3s ease;
+        }
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+        }
+ 
+        /* Cards & Professional Elements */
+        .card {
+            border: none;
+            border-radius: 16px;
+            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f1f5f9;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .card-img-top {
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+ 
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+        .bg-light-custom {
+            background-color: var(--bg-light);
+        }
+        .section-title {
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 0;
+            height: 3px;
+            background: var(--accent-gold);
+            transform: translateX(-50%);
+            transition: width 0.6s ease;
+            border-radius: 3px;
+        }
+        .text-center .section-title.aos-animate::after,
+        .section-title.title-line::after {
+            width: 70px;
+        }
+        .section-subtitle {
+            color: #64748b;
+            max-width: 650px;
+            margin: 0 auto 60px auto;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+ 
+        /* Visi Misi Box */
+        .vision-mission-box {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-left: 5px solid var(--accent-gold);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            padding: 35px;
+            height: 100%;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .vision-mission-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+        }
+        .vision-mission-box .fs-2 {
+            display: inline-block;
+            animation: bounceIcon 2.6s ease-in-out infinite;
+        }
+ 
+        /* Gallery Grid Adjustments */
+        .gallery-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(9, 16, 38, 0.75);
+            backdrop-filter: blur(5px);
+            color: var(--accent-gold);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .card:hover .gallery-badge {
+            transform: scale(1.08);
+        }
+ 
+        /* Sertifikat Styling */
+        .cert-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .cert-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+        .cert-img {
+            height: 230px;
+            object-fit: contain;
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+        .cert-card:hover .cert-img {
+            transform: scale(1.05) rotate(-1deg);
+        }
+ 
+        /* Testimonial & Instructor Cards */
+        .instructor-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+            height: 100%;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .instructor-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+        }
+        .instructor-card img {
+            transition: transform 0.4s ease;
+        }
+        .instructor-card:hover img {
+            transform: scale(1.08);
+        }
+ 
+        .card .text-gold.mb-2 {
+            letter-spacing: 3px;
+        }
+ 
+        /* Star rating subtle animation */
+        .stars-anim span {
+            display: inline-block;
+            animation: fadeInUp 0.5s ease both;
+        }
+ 
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            animation: pulseGlow 2.5s infinite;
+        }
+        .whatsapp-float:hover {
+            background-color: #1ebd59;
+            color: white;
+            transform: scale(1.06);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+            animation: none;
+        }
+        .whatsapp-float i {
+            animation: bounceIcon 1.8s ease-in-out infinite;
+        }
+ 
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            padding: 70px 0 30px 0;
+            border-top: 3px solid var(--accent-gold);
+        }
+        footer i {
+            transition: transform 0.3s ease;
+        }
+        footer p:hover i {
+            transform: scale(1.2) rotate(-6deg);
+        }
+ 
+        /* back to top */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--accent-gold);
+            border: 1px solid rgba(212,175,55,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.35s ease;
+            z-index: 999;
+        }
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #backToTop:hover {
+            background: var(--accent-gold);
+            color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        /* ===== Video Kegiatan ===== */
+        .video-card {
+            background: #fff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: all 0.35s ease;
+            height: 100%;
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .video-card video {
+            display: block;
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            background: #050a18;
+        }
+        .video-card .video-info {
+            padding: 20px;
+        }
+        .video-badge {
+            display: inline-block;
+            background: rgba(9,16,38,0.08);
+            color: var(--primary-color);
+            border: 1px solid rgba(212,175,55,0.35);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 767.98px) {
+            .video-card video {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+ 
+    <!-- Top Bar Info -->
+    <div class="top-bar d-none d-lg-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <span class="me-4"><i class="bi bi-geo-alt-fill text-gold me-1"></i> Jl. Burangrang V No.181 Depok Timur II</span>
+                <span><i class="bi bi-telephone-fill text-gold me-1"></i> 0856-9543-4343</span>
+            </div>
+            <div>
+                <span class="badge bg-gold text-dark fw-bold px-2 py-1">Satu-satunya TUK Tata Busana di Depok • Terakreditasi</span>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Navbar Utama -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="logo.png" alt="Logo Melati Santina Utama">
+                <span class="fw-bold fs-5 text-white">MELATI <span class="text-gold">SANTINA UTAMA</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-lg-center gap-2">
+                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#profil">Profil & Legalitas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#program">Program Kursus</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pengajar">Struktur Pengajar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#fasilitas">Fasilitas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#video-kegiatan">Video Kegiatan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galeri">Galeri Kegiatan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#legalitas">Sertifikat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimoni">Testimoni</a></li>
+                    <li class="nav-item ms-lg-2"><a class="btn btn-gold btn-sm px-4 rounded-pill shadow-sm" href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20tertarik%20untuk%20mendaftar%20kursus." target="_blank">Daftar Sekarang</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+ 
+    <!-- Beranda / Hero Section -->
+    <header id="beranda" class="hero-section text-center">
+        <div class="float-shape" style="width:120px;height:120px;background:var(--accent-gold);top:15%;left:8%;animation-duration:8s;"></div>
+        <div class="float-shape" style="width:70px;height:70px;background:#ffffff;top:65%;left:85%;animation-duration:6s;animation-delay:1s;"></div>
+        <div class="float-shape" style="width:50px;height:50px;background:var(--accent-gold);top:75%;left:12%;animation-duration:9s;animation-delay:2s;"></div>
+        <div class="container py-4">
+            <span class="badge bg-dark text-gold border border-gold mb-3 px-3 py-2 rounded-pill fw-semibold shadow-sm animate-in">Pusat Pelatihan Keterampilan Vokasi Profesional Sejak 2000</span>
+            <h1 class="display-4 fw-bold mb-4">Membangun Kemandirian Melalui <br><span class="text-gold">Keahlian Vokasi Unggul</span></h1>
+            <p class="lead text-white-50 mx-auto section-subtitle">Satu-satunya Tempat Uji Kompetensi (TUK) Bidang Tata Busana di Kota Depok yang berorientasi pada kemandirian ekonomi masyarakat.</p>
+            <div class="d-flex justify-content-center gap-3 mt-4 hero-btns">
+                <a href="#program" class="btn btn-gold btn-lg shadow">Jelajahi Program Kursus</a>
+                <a href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20ingin%20konsultasi%20program%20pelatihan." target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-4">Konsultasi via WA</a>
+            </div>
+        </div>
+    </header>
+ 
+    <!-- Profil Lembaga & Legalitas Section -->
+    <section id="profil" class="container">
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="800">
+                <h6 class="text-gold fw-bold text-uppercase tracking-wider">Profil Lembaga</h6>
+                <h2 class="section-title display-6 title-line">Yayasan Melati Santina Utama</h2>
+                <p class="text-secondary mb-3 mt-3" style="line-height: 1.8;">
+                    Yayasan Melati Santina Utama merupakan lembaga pendidikan non-formal di bidang Tata Busana yang telah berdiri <strong>sejak tahun 2000</strong>. Kami bangga menjadi <strong>satu-satunya di Kota Depok yang menjadi Tempat Uji Kompetensi (TUK) Bidang Tata Busana</strong>.
+                </p>
+                <p class="text-secondary mb-3" style="line-height: 1.8;">
+                    Pembelajaran di lembaga kami dilaksanakan dengan metode interaktif meliputi <strong>ceramah, tanya jawab, dan diskusi</strong>. Pada akhir pembelajaran, diadakan uji lokal serta uji kompetensi yang bekerja sama dengan Lembaga Sertifikasi Kompetensi (LSK) serta Dunia Usaha dan Dunia Industri (DUDI) terkait.
+                </p>
+                <div class="p-3 bg-light-custom rounded-3 border-start border-4 border-gold mb-3">
+                    <h6 class="fw-bold mb-1">Legalitas Resmi Dinas Pendidikan Kota Depok:</h6>
+                    <p class="text-muted small mb-0">• No. Izin Pendirian: 203/102.5.29/ms/2000<br>• No. Izin Penyelenggaraan: 421.9/32-disdik/2011, 421.1/43-PNFI/Disdik/2013, 421.9/0148-Disdik/2017</p>
+                </div>
+                <div class="p-3 bg-light-custom rounded-3 border-start border-4 border-gold">
+                    <h6 class="fw-bold mb-1">Legalitas Dinas Tenaga Kerja dan Sosial Kota Depok:</h6>
+                    <p class="text-muted small mb-0">• No. Sertifikat: 563/12/LAPENTA/2014 & 563/1174/Latpenta/2017</p>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="800">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <img src="gedung_depan_1.jpg" class="img-fluid rounded-4 shadow-sm w-100" alt="Gedung Utama 1" style="height: 280px; object-fit: cover;">
+                    </div>
+                    <div class="col-6 mt-4">
+                        <img src="gedung_depan_2.jpg" class="img-fluid rounded-4 shadow-sm w-100" alt="Gedung Utama 2" style="height: 280px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Misi & Visi Lembaga -->
+        <div class="row g-4 mt-4">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="700">
+                <div class="vision-mission-box">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="fs-2 text-gold"><i class="bi bi-bullseye"></i></div>
+                        <h3 class="fw-bold mb-0 text-dark">Misi Lembaga</h3>
+                    </div>
+                    <p class="text-secondary mb-0" style="line-height: 1.7;">
+                        Membantu pemerintah membangun masyarakat dalam bidang tata busana atau mode agar tercipta lulusan yang terampil, kompeten dan professional serta bertakwa kepada Tuhan Yang Maha Esa.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
+                <div class="vision-mission-box">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="fs-2 text-gold"><i class="bi bi-eye-fill"></i></div>
+                        <h3 class="fw-bold mb-0 text-dark">Visi Lembaga</h3>
+                    </div>
+                    <p class="text-secondary mb-0" style="line-height: 1.7;">
+                        Menerapkan sistem pendidikan dan pelatihan keterampilan yang berbasis standar pendidikan nasional yang sesuai dengan sistem kerangka kerja nasional Indonesia, serta membimbing, mengarahkan, mengantar dan mendampingi peserta didik agar bisa mandiri atau bekerja serta terus menggali ilmu dan teknik sesuai bidangnya.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Program Kursus Section -->
+    <section id="program" class="bg-light-custom">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <h6 class="text-gold fw-bold text-uppercase tracking-wider">Kurikulum & Layanan</h6>
+                <h2 class="section-title title-line">Daftar Program Kursus</h2>
+                <p class="section-subtitle">Pilihan program pelatihan vokasi terlengkap untuk mengasah keahlian Anda.</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Tata Busana Detail -->
+                <div class="col-lg-6" data-aos="zoom-in" data-aos-duration="700">
+                    <div class="card h-100 p-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="fs-1 text-gold"><i class="bi bi-scissors"></i></div>
+                                <h3 class="fw-bold mb-0">a. Tata Busana</h3>
+                            </div>
+                            <p class="text-muted mb-3">Program lengkap dari tingkat dasar hingga mahir dan keahlian khusus:</p>
+                            <ul class="text-secondary ps-3 mb-0" style="line-height: 1.8;">
+                                <li>Reguler Level 2</li>
+                                <li>Reguler Level 3</li>
+                                <li>Privat Go to Home</li>
+                                <li>Privat 6 bulan (Tanpa Uang Pangkal)</li>
+                                <li>Privat Singkat dan Garmen (Tanpa Uang Pangkal)</li>
+                                <li>Kain Wiron dan Sarung Tanpa Potong</li>
+                                <li>Kebaya Modifikasi</li>
+                                <li>Keterampilan Terkait</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+ 
+                <!-- Bidang Lainnya -->
+                <div class="col-lg-6">
+                    <div class="row g-4 h-100">
+                        <div class="col-12" data-aos="fade-left" data-aos-duration="600">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h4 class="fw-bold mb-2 text-dark"><i class="bi bi-palette text-gold me-2"></i>b. Handicraft</h4>
+                                    <p class="text-muted small mb-0">Pelatihan kerajinan tangan kreatif dan bernilai seni tinggi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" data-aos="fade-left" data-aos-duration="600" data-aos-delay="100">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h4 class="fw-bold mb-2 text-dark"><i class="bi bi-camera-fill text-gold me-2"></i>c. Photografi</h4>
+                                    <p class="text-muted small mb-0">Teknik dasar hingga pemotretan profesional.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" data-aos="fade-left" data-aos-duration="600" data-aos-delay="200">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h4 class="fw-bold mb-2 text-dark"><i class="bi bi-brush text-gold me-2"></i>d. Tata Rias Pengantin & e. Tata Boga</h4>
+                                    <p class="text-muted small mb-0">Keahlian rias pengantin tradisional/modern serta olahan kuliner.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Struktur Pengajar Section (Dengan Foto Profil Instruktur) -->
+    <section id="pengajar" class="container">
+        <div class="text-center" data-aos="fade-up">
+            <h6 class="text-gold fw-bold text-uppercase tracking-wider">Tim Profesional</h6>
+            <h2 class="section-title title-line">Struktur Pengajar</h2>
+            <p class="section-subtitle">Dibimbing oleh instruktur berpengalaman, bersertifikasi nasional, dan berdedikasi tinggi.</p>
+        </div>
+ 
+        <div class="row g-4">
+            <!-- Pengajar 1 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="700">
+                <div class="instructor-card h-100 d-flex flex-column">
+                    <div class="text-center mb-3">
+                        <img src="dwi_wahyuni.jpg" alt="Ibu Dwi Wahyuni Aprilianti" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--accent-gold);">
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2 text-center">1. Ibu Dwi Wahyuni Aprilianti</h4>
+                    <p class="text-gold small fw-bold mb-3 text-center">Penguji Nasional & Pengurus IPBI</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan:</strong> SD Negeri Jakarta, SMEP Blitar, SMEA Taman Siswa Jakarta.</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan Non Formal:</strong> Kursus menjahit (dasar, terampil, mahir), Penguji Nasional & Penguji Kompetensi (Level I & II).</p>
+                    <p class="text-muted small mb-0 mt-auto"><strong>Pengalaman Kerja:</strong> Sekretaris & Ketua IPBI Cab. Depok (2005-2014), Rumpun Kesehatan HISPP IPWF DPC Depok.</p>
+                </div>
+            </div>
+ 
+            <!-- Pengajar 2 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+                <div class="instructor-card h-100 d-flex flex-column">
+                    <div class="text-center mb-3">
+                        <img src="efril_fouriadina.jpg" alt="Efril Fouriadina" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--accent-gold);">
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2 text-center">2. Efril Fouriadina</h4>
+                    <p class="text-gold small fw-bold mb-3 text-center">Pimpinan Melati Santina Utama & Narasumber Ahli</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan:</strong> Sarjana Pendidikan Tata Busana Universitas Negeri Jakarta (UNJ).</p>
+                    <p class="text-muted small mb-2"><strong>Sertifikasi & Kompetensi:</strong> Sertifikat Kompetensi Tata Busana Level I & II, Asesor Akreditasi LPK, Instruktur Metodologi BNSP, Tailor Junior.</p>
+                    <p class="text-muted small mb-0 mt-auto"><strong>Prestasi & Karir:</strong> Design Pattern di Riamiranda (2012), Pimpinan Melati Santina Utama, Narasumber Pelatihan Menjahit Kementerian/Dinas, Juara I Instruktur Kursus Tata Busana Kota Depok.</p>
+                </div>
+            </div>
+ 
+            <!-- Pengajar 3 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="700">
+                <div class="instructor-card h-100 d-flex flex-column">
+                    <div class="text-center mb-3">
+                        <img src="woro_noviana.jpg" alt="Woro Noviana" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--accent-gold);">
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2 text-center">3. Woro Noviana</h4>
+                    <p class="text-gold small fw-bold mb-3 text-center">Instruktur Melati Santina Utama</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan:</strong> SDN 1 Depok, SMPN 3 Depok, SMAN 49 Jakarta.</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan Non Formal:</strong> Kursus Menjahit Melati Santina Utama, Sertifikat Kompetensi Level II & III.</p>
+                    <p class="text-muted small mb-0 mt-auto"><strong>Pengalaman Kerja:</strong> Instruktur aktif di Melati Santina Utama, Anggota IPBI Cab. Depok.</p>
+                </div>
+            </div>
+ 
+            <!-- Pengajar 4 -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+                <div class="instructor-card h-100 d-flex flex-column">
+                    <div class="text-center mb-3">
+                        <img src="rochayah.jpg" alt="Rochayah" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--accent-gold);">
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2 text-center">4. Rochayah</h4>
+                    <p class="text-gold small fw-bold mb-3 text-center">Instruktur Senior</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan:</strong> Universitas Nasional (Management), SMK YPK Jakarta.</p>
+                    <p class="text-muted small mb-2"><strong>Pendidikan Non Formal:</strong> Kursus Menjahit LKP Indriana, Sertifikat Kompetensi Level II & III, Sertifikat BNSP Metodologi Level 3 Instruktur.</p>
+                    <p class="text-muted small mb-0 mt-auto"><strong>Pengalaman Kerja:</strong> Instruktur di LKP Indriana & Melati Santina Utama, Anggota IPBI Cab. Depok.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Fasilitas Section -->
+    <section id="fasilitas" class="bg-light-custom">
+        <div class="container text-center" data-aos="fade-up">
+            <h6 class="text-gold fw-bold text-uppercase tracking-wider">Sarana Belajar</h6>
+            <h2 class="section-title title-line">Fasilitas & Ruang Praktik</h2>
+            <p class="section-subtitle">Didukung ruangan dan perlengkapan lengkap untuk mengoptimalkan proses penyerapan materi.</p>
+        </div>
+ 
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700">
+                    <div class="card h-100 position-relative">
+                        <span class="gallery-badge">Fasilitas</span>
+                        <img src="fasilitas_ruang_praktik.jpg" class="card-img-top" alt="Ruang Praktik Utama">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Ruang Praktik Utama</h5>
+                            <p class="text-muted small mb-0">Ruang belajar lapang, bersih, tertata rapi, dan kondusif.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700" data-aos-delay="120">
+                    <div class="card h-100 position-relative">
+                        <span class="gallery-badge">Fasilitas</span>
+                        <img src="fasilitas_mesin_jahit.jpg" class="card-img-top" alt="Mesin Jahit">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Peralatan Mesin Jahit</h5>
+                            <p class="text-muted small mb-0">Unit mesin jahit siap pakai standar industri tekstil.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700" data-aos-delay="240">
+                    <div class="card h-100 position-relative">
+                        <span class="gallery-badge">Fasilitas</span>
+                        <img src="fasilitas_meja_potong.jpg" class="card-img-top" alt="Meja Potong">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Area Meja Potong</h5>
+                            <p class="text-muted small mb-0">Meja potong kain luas untuk praktik pembuatan pola busana.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+
+    <!-- Video Kegiatan Section -->
+    <section id="video-kegiatan" class="bg-light-custom">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <h6 class="text-gold fw-bold text-uppercase tracking-wider">Dokumentasi Video</h6>
+                <h2 class="section-title title-line">Video Kegiatan Melati Santina Utama</h2>
+                <p class="section-subtitle">
+                    Saksikan dokumentasi kegiatan dan proses pembelajaran peserta didik secara langsung.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_01.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 1</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600" data-aos-delay="80">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_02.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 2</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600" data-aos-delay="160">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_03.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 3</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_04.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 4</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600" data-aos-delay="80">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_05.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 5</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-duration="600" data-aos-delay="160">
+                    <div class="video-card">
+                        <video controls preload="metadata" playsinline>
+                            <source src="video_06.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video.
+                        </video>
+                        <div class="video-info">
+                            <span class="video-badge"><i class="bi bi-play-circle-fill me-1"></i> Video Kegiatan</span>
+                            <h5 class="fw-bold mb-0">Dokumentasi Kegiatan 6</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Kegiatan Section (LENGKAP - TIDAK ADA YANG DIHAPUS) -->
+    <section id="galeri" class="container">
+        <div class="text-center" data-aos="fade-up">
+            <h6 class="text-gold fw-bold text-uppercase tracking-wider">Dokumentasi Lapangan</h6>
+            <h2 class="section-title title-line">Galeri Kegiatan Siswa</h2>
+            <p class="section-subtitle">Aktivitas langsung peserta didik dalam mendalami keahlian praktis di berbagai program.</p>
+        </div>
+ 
+        <div class="row g-4" id="galeriGrid">
+            <!-- Diisi otomatis oleh JavaScript dari /api/gallery -->
+            <div class="col-12 text-center text-muted py-4" id="galeriEmptyState">Memuat galeri...</div>
+        </div>
+    </section>
+ 
+    <!-- Sertifikat & Legalitas Section (LENGKAP - TIDAK ADA YANG DIHAPUS) -->
+    <section id="legalitas" class="bg-light-custom">
+        <div class="container text-center" data-aos="fade-up">
+            <h6 class="text-gold fw-bold text-uppercase tracking-wider">Kredibilitas Resmi</h6>
+            <h2 class="section-title title-line">Sertifikat & Perizinan Lembaga</h2>
+            <p class="section-subtitle">Bukti pengakuan formal, izin operasional dinas, serta akreditasi resmi.</p>
+        </div>
+ 
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_akreditasi.jpg" class="cert-img w-100 mb-3" alt="Akreditasi">
+                        <h6 class="fw-bold mb-0">Sertifikat Akreditasi Lembaga</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_npsn.jpg" class="cert-img w-100 mb-3" alt="NPSN">
+                        <h6 class="fw-bold mb-0">Sertifikat NPSN Resmi</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_apresiasi.jpg" class="cert-img w-100 mb-3" alt="Apresiasi">
+                        <h6 class="fw-bold mb-0">Sertifikat Apresiasi & Penghargaan</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_keanggotaan.jpg" class="cert-img w-100 mb-3" alt="Keanggotaan">
+                        <h6 class="fw-bold mb-0">Sertifikat Keanggotaan Resmi</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_pameran.jpg" class="cert-img w-100 mb-3" alt="Pameran">
+                        <h6 class="fw-bold mb-0">Sertifikat Partisipasi Pameran</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_izin_tatabusana_2025.jpg" class="cert-img w-100 mb-3" alt="Izin Tata Busana">
+                        <h6 class="fw-bold mb-0">Izin Operasional Tata Busana</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_izin_tatarias_2025.jpg" class="cert-img w-100 mb-3" alt="Izin Tata Rias">
+                        <h6 class="fw-bold mb-0">Izin Operasional Tata Rias</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_izin_tataboga_2025.jpg" class="cert-img w-100 mb-3" alt="Izin Tata Boga">
+                        <h6 class="fw-bold mb-0">Izin Operasional Tata Boga</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_izin_handicraft_2025.jpg" class="cert-img w-100 mb-3" alt="Izin Handicraft">
+                        <h6 class="fw-bold mb-0">Izin Operasional Handicraft</h6>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                    <div class="cert-card text-center h-100">
+                        <img src="sertifikat_izin_fotografi_2025.jpg" class="cert-img w-100 mb-3" alt="Izin Fotografi">
+                        <h6 class="fw-bold mb-0">Izin Operasional Fotografi</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Testimoni Alumni Section -->
+    <section id="testimoni" class="container">
+        <div class="text-center" data-aos="fade-up">
+            <h6 class="text-gold fw-bold text-uppercase tracking-wider">Ulasan Pengguna</h6>
+            <h2 class="section-title title-line">Testimoni Alumni</h2>
+            <p class="section-subtitle">Apa kata mereka yang telah merasakan pengalaman belajar langsung di Melati Santina Utama.</p>
+        </div>
+ 
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Nasiroh</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Kursus jahit yg sgt wort it buat belajar jahit, mulai dr tempat yg nyaman & lengkap serta para pengajar profesional yang baik."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Frazna Paramitha</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Kursus jahit terbaik! Instruktur profesional, tempat nyaman, materi langsung praktik dan mudah dipahami. Sangat worth it!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Wicka Ydu</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempat kursus jahit terbaik. Tutornya ramah, mendampingi peserta dengan baik dan dipahami sampai bisa."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Ade Puput</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempat kursus jahit nyaman, pengajar ramah dan mudah di fahami."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Cut Muthia</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempatnya bagus, bersih, pengajar nya cantik dan baik ."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Heny Hardiyanti</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempatnya rapi, nyaman, pengajarnya kompeten.. recommended banget sih buat yg mau kursi jahit.."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Chairunisa Fadhilah</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempatnya bersih jadi nyaman banget belajar/ikut workshop di sini, pengajarnya juga ramah, baik banget dan udah kompeten dibidangnya, krennn👌"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="60">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Ahmad Yusan</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Tempat kursus yang sangat memuaskan, tim pengajar yang sudah berpengalaman, tempat myaman, dan peralatan lengkap."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="120">
+                <div class="card h-100 p-4">
+                    <div class="card-body p-0">
+                        <div class="text-gold mb-2">★★★★★</div>
+                        <h5 class="fw-bold mb-1">Chibi Atin</h5>
+                        <p class="text-muted small mb-3">14 minggu yang lalu</p>
+                        <p class="text-secondary small mb-0">"Saya liat semakin maju dan bagus pertahankan."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Tombol WhatsApp Floating -->
+    <a href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20ingin%20bertanya%20mengenai%20pendaftaran%20kursus." class="whatsapp-float" target="_blank">
+        <i class="bi bi-whatsapp fs-4"></i> <span>Hubungi Kami</span>
+    </a>
+ 
+    <!-- Tombol Back to Top -->
+    <button id="backToTop" title="Kembali ke atas"><i class="bi bi-arrow-up"></i></button>
+ 
+    <!-- Footer / Kontak Resmi -->
+    <footer id="kontak">
+        <div class="container text-center" data-aos="fade-up">
+            <h3 class="text-white fw-bold mb-3">Melati Santina Utama</h3>
+            <p class="text-light mb-2"><i class="bi bi-geo-alt-fill text-gold me-2"></i> Jl. Burangrang V No.181 Depok Timur II Kota Depok</p>
+            <p class="text-light mb-2"><i class="bi bi-telephone-fill text-gold me-2"></i> No. Telp/WA: 085695434343</p>
+            <p class="text-light mb-4"><i class="bi bi-envelope-fill text-gold me-2"></i> Email: yayasanmelatisantinautama@gmail.com</p>
+            <p class="text-light mb-4"><i class="bi bi-clock-fill text-gold me-2"></i> Jam Operasional: Senin s/d Sabtu dari Jam 09.00 s/d 18.00</p>
+            <hr class="border-secondary my-4" style="opacity: 0.15;">
+            <p class="small text-muted mb-0">&copy; 2026 Melati Santina Utama. All Rights Reserved.</p>
+        </div>
+    </footer>
+ 
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 60,
+            easing: 'ease-out-cubic'
+        });
+
+        // ===== Ambil data dinamis dari admin panel (Pengaturan Website & Galeri) =====
+        async function loadSiteSettings() {
+            try {
+                const res = await fetch('/api/settings');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                if (data.siteName) {
+                    document.querySelectorAll('.navbar-brand span').forEach(el => {
+                        el.innerHTML = data.siteName;
+                    });
+                }
+                if (data.heroTitle) {
+                    const heroGold = document.querySelector('.hero-section h1 .text-gold');
+                    if (heroGold) heroGold.textContent = data.heroTitle;
+                }
+                if (data.whatsappNumber) {
+                    // Normalisasi ke format 62xxxxxxxxxx buat link wa.me
+                    let waDigits = data.whatsappNumber.replace(/\\D/g, '');
+                    if (waDigits.startsWith('0')) waDigits = '62' + waDigits.slice(1);
+                    document.querySelectorAll('a[href*="wa.me/"]').forEach(a => {
+                        const url = new URL(a.href);
+                        const query = url.search;
+                        a.href = `https://wa.me/${waDigits}${query}`;
+                    });
+                    document.querySelectorAll('.top-bar span:nth-child(2)').forEach(el => {
+                        el.innerHTML = `<i class="bi bi-telephone-fill text-gold me-1"></i> ${data.whatsappNumber}`;
+                    });
+                }
+            } catch (err) {
+                console.error('Gagal memuat pengaturan website:', err);
+            }
+        }
+
+        async function loadGalleryContent() {
+            const grid = document.getElementById('galeriGrid');
+            try {
+                const res = await fetch('/api/gallery');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!data.length) {
+                    grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Belum ada dokumentasi kegiatan.</div>';
+                    return;
+                }
+                grid.innerHTML = data.map(item => `
+                    <div class="col-md-4" data-aos="zoom-in-up" data-aos-duration="600">
+                        <div class="card h-100 position-relative">
+                            ${item.category ? `<span class="gallery-badge">${item.category}</span>` : ''}
+                            ${item.mediaType === 'VIDEO'
+                                ? `<video src="${item.mediaUrl}" class="card-img-top" style="height:220px;object-fit:cover;" controls></video>`
+                                : `<img src="${item.mediaUrl}" class="card-img-top" alt="${item.title || ''}">`}
+                            <div class="card-body">
+                                <h5 class="fw-bold">${item.title || ''}</h5>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                AOS.refresh();
+            } catch (err) {
+                console.error('Gagal memuat galeri:', err);
+                grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Gagal memuat galeri.</div>';
+            }
+        }
+
+        loadSiteSettings();
+        loadGalleryContent();
+ 
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+ 
+        // Navbar shrink on scroll for a lively feel
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 60) {
+                navbar.style.padding = '8px 0';
+            } else {
+                navbar.style.padding = '14px 0';
+            }
+        });
+ 
+        // Active nav link highlight on scroll
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', function () {
+            let current = '';
+            sections.forEach(sec => {
+                const sectionTop = sec.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = sec.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
