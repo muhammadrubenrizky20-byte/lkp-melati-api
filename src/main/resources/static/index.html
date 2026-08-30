@@ -1105,34 +1105,68 @@
         }
 
         async function loadGalleryContent() {
-            const grid = document.getElementById('galeriGrid');
-            try {
-                const res = await fetch('https://lkp-melati-api-production.up.railway.app/api/gallery');
-                if (!res.ok) return;
-                const data = await res.json();
-                if (!data.length) {
-                    grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Belum ada dokumentasi kegiatan.</div>';
-                    return;
-                }
-                grid.innerHTML = data.map(item => `
-                    <div class="col-md-4" data-aos="zoom-in-up" data-aos-duration="600">
-                        <div class="card h-100 position-relative">
-                            ${item.category ? `<span class="gallery-badge">${item.category}</span>` : ''}
-                            ${item.mediaType === 'VIDEO'
-                                ? `<video src="${item.mediaUrl}" class="card-img-top" style="height:220px;object-fit:cover;" controls></video>`
-                                : `<img src="${item.mediaUrl}" class="card-img-top" alt="${item.title || ''}">`}
-                            <div class="card-body">
-                                <h5 class="fw-bold">${item.title || ''}</h5>
-                            </div>
+    const grid = document.getElementById('galeriGrid');
+    try {
+        const res = await fetch('https://lkp-melati-api-production.up.railway.app/api/gallery');
+        if (!res.ok) throw new Error('API Error');
+        
+        const data = await res.json();
+        if (!data || !data.length) {
+            grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Belum ada dokumentasi kegiatan.</div>';
+            return;
+        }
+
+        grid.innerHTML = data.map(item => {
+            // Jika mediaUrl bukan link lengkap (http), otomatis arahkan ke nama file lokal/Railway
+            let mediaSrc = item.mediaUrl || '';
+            if (mediaSrc && !mediaSrc.startsWith('http')) {
+                mediaSrc = `./${mediaSrc}`; 
+            }
+
+            return `
+                <div class="col-md-4" data-aos="zoom-in-up" data-aos-duration="600">
+                    <div class="card h-100 position-relative">
+                        ${item.category ? `<span class="gallery-badge">${item.category}</span>` : ''}
+                        ${item.mediaType === 'VIDEO'
+                            ? `<video src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" controls></video>`
+                            : `<img src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" alt="${item.title || ''}">`
+                        }
+                        <div class="card-body">
+                            <h5 class="fw-bold">${item.title || ''}</h5>
                         </div>
                     </div>
-                `).join('');
-                AOS.refresh();
-            } catch (err) {
-                console.error('Gagal memuat galeri:', err);
-                grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Gagal memuat galeri.</div>';
-            }
-        }
+                </div>
+            `;
+        }).join('');
+
+    } catch (err) {
+        console.error('Gagal memuat galeri:', err);
+        // Fallback: Jika API Railway mati/kosong, tampilkan galeri statis default agar tetap ada isinya saat presentasi
+        grid.innerHTML = `
+            <div class="col-md-4">
+                <div class="card h-100 position-relative">
+                    <span class="gallery-badge">JAHIT</span>
+                    <img src="./KEGIATAN MEJAHIT.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Menjahit">
+                    <div class="card-body"><h5 class="fw-bold">Kegiatan Menjahit</h5></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 position-relative">
+                    <span class="gallery-badge">TATA RIAS</span>
+                    <img src="./KEGIATAN TATA RIAS.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Tata Rias">
+                    <div class="card-body"><h5 class="fw-bold">Pelatihan Tata Rias</h5></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 position-relative">
+                    <span class="gallery-badge">CRAFT</span>
+                    <img src="./HANDICRAFT.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Handicraft">
+                    <div class="card-body"><h5 class="fw-bold">Kerajinan Tangan</h5></div>
+                </div>
+            </div>
+        `;
+    }
+}
 
         loadSiteSettings();
         loadGalleryContent();
