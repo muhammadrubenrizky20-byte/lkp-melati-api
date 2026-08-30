@@ -1073,7 +1073,7 @@
         // ===== Ambil data dinamis dari admin panel (Pengaturan Website & Galeri) =====
         async function loadSiteSettings() {
             try {
-                const res = await fetch('/api/settings');
+                const res = await fetch('https://lkp-melati-api-production.up.railway.app/api/settings');
                 if (!res.ok) return;
                 const data = await res.json();
 
@@ -1107,7 +1107,7 @@
         async function loadGalleryContent() {
             const grid = document.getElementById('galeriGrid');
             try {
-                const res = await fetch('/api/gallery');
+                const res = await fetch('https://lkp-melati-api-production.up.railway.app/api/gallery');
                 if (!res.ok) return;
                 const data = await res.json();
                 if (!data.length) {
