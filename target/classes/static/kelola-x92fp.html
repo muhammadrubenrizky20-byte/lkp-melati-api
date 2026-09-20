@@ -228,6 +228,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ================= BASE API URL =================
+        const API_BASE = 'https://api-melati-production.up.railway.app';
+
         // ================= AUTH =================
         function getToken() { return localStorage.getItem('admin_token'); }
 
@@ -253,7 +256,7 @@
 
         // Kalau server balas 401/403, berarti sesi habis/tidak sah -> paksa logout
         async function apiFetch(url, options = {}) {
-            const res = await fetch(url, { ...options, headers: authHeaders(options.headers || {}) });
+            const res = await fetch(API_BASE + url, { ...options, headers: authHeaders(options.headers || {}) });
             if (res.status === 401 || res.status === 403) {
                 showToast('Sesi login berakhir, silakan login ulang.', true);
                 logout();
@@ -269,7 +272,7 @@
             const errBox = document.getElementById('loginError');
             errBox.style.display = 'none';
             try {
-                const res = await fetch('/api/auth/login', {
+                const res = await fetch(`${API_BASE}/api/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
@@ -317,7 +320,7 @@
         // ================= SETTINGS =================
         async function loadSettings() {
             try {
-                const res = await fetch('/api/settings');
+                const res = await fetch(`${API_BASE}/api/settings`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data.siteName) document.getElementById('siteName').value = data.siteName;
@@ -459,7 +462,7 @@
         let programCache = [];
         async function loadProgram() {
             try {
-                const res = await fetch('/api/program');
+                const res = await fetch(`${API_BASE}/api/program`);
                 const data = await res.json();
                 programCache = data;
                 document.getElementById('tableProgram').innerHTML = data.map(item => `
@@ -521,7 +524,7 @@
 
         async function loadGallery() {
             try {
-                const res = await fetch('/api/gallery');
+                const res = await fetch(`${API_BASE}/api/gallery`);
                 const data = await res.json();
                 document.getElementById('galleryGrid').innerHTML = data.map(item => `
                     <div class="col-md-4">
