@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melati Santina Utama | Pusat Pelatihan Keterampilan Vokasi Profesional</title>
+  <meta name="description" content="LKP Melati Santina Utama menyediakan kursus dan pelatihan tata busana, menjahit, tata rias, handicraft, dan tata boga resmi di Cileungsi, Bogor.">
+    <meta name="keywords" content="LKP Melati Santina Utama, kursus menjahit cileungsi, pelatihan tata rias bogor, kursus tata boga">
+    <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="JUy60R_bAxFb8J_pAjeHN9Msh9xhpdt5z9lMYd05D7E" />
+  
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- AOS (Animate On Scroll) -->
@@ -15,28 +20,46 @@
  
     <style>
         :root {
-            --primary-color: #091026;
-            --primary-light: #162247;
-            --accent-gold: #d4af37;
-            --accent-gold-hover: #e5c158;
-            --bg-light: #f8fafc;
+            --primary-color: #6B3A4E;   /* deep mauve-plum */
+            --primary-light: #9C5C74;   /* mid rose-plum */
+            --accent-gold: #E6829F;     /* vivid dusty rose accent */
+            --accent-gold-hover: #D66884; /* deeper rose hover */
+            --bg-light: #FFF3F6;        /* blush pink-cream */
+            --pink-soft: #FFDDE7;       /* soft pink wash */
         }
  
         html { scroll-behavior: smooth; }
  
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #334155;
-            background-color: #ffffff;
+            color: #4a3b42;
+            background-color: #fffbfc;
             overflow-x: hidden;
         }
+
+        h1, h2, h3, h4, h5, h6,
+        .section-title,
+        .navbar-brand span,
+        .hero-section h1 {
+            font-family: 'Marcellus', serif;
+        }
+
+        /* Utility classes (gold->rose accent) */
+        .text-gold { color: var(--primary-light) !important; }
+        .bg-gold { background-color: var(--accent-gold) !important; }
+        .border-gold { border-color: var(--accent-gold) !important; }
+        /* On dark mauve surfaces, keep the lighter rose for legibility */
+        .top-bar .text-gold,
+        footer .text-gold,
+        .badge.bg-dark.text-gold { color: var(--accent-gold) !important; }
+        .badge.bg-dark { background-color: var(--primary-color) !important; }
  
         /* ===== Subtle floating decorative shapes ===== */
         .float-shape {
             position: absolute;
             border-radius: 50%;
             filter: blur(2px);
-            opacity: 0.25;
+            opacity: 0.3;
             pointer-events: none;
             animation: floatY 7s ease-in-out infinite;
         }
@@ -49,8 +72,8 @@
             50% { transform: translateY(-14px) rotate(-6deg); }
         }
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.35); }
-            50% { box-shadow: 0 0 0 14px rgba(212, 175, 55, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(216, 140, 160, 0.35); }
+            50% { box-shadow: 0 0 0 14px rgba(216, 140, 160, 0); }
         }
         @keyframes shimmer {
             0% { background-position: -300px 0; }
@@ -64,64 +87,134 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }
         }
+        @keyframes spinRing {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes ringGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(230, 130, 159, 0.35); }
+            50% { box-shadow: 0 0 14px 4px rgba(230, 130, 159, 0.25); }
+        }
+        @keyframes floatPetal {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-24px) rotate(14deg); }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 0.9; transform: scale(1.15); }
+        }
+        @keyframes flowerPulse {
+            0%, 100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+            50% { transform: translateX(-50%) scale(1.15) rotate(12deg); }
+        }
+        @keyframes ctaGlow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(230, 130, 159, 0.35); }
+            50% { box-shadow: 0 8px 34px rgba(230, 130, 159, 0.6); }
+        }
+
+        /* ===== Logo: circular with animated gradient ring ===== */
+        .logo-ring {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--accent-gold), var(--primary-light), var(--pink-soft), var(--accent-gold));
+            animation: spinRing 5s linear infinite;
+        }
+        .logo-ring::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            animation: ringGlow 3s ease-in-out infinite;
+        }
+        .logo-ring img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            background: #fff;
+            transition: transform 0.4s ease;
+        }
+        .navbar-brand:hover .logo-ring img {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        /* ===== Hero decorative florals & sparkles ===== */
+        .hero-petal {
+            position: absolute;
+            color: var(--accent-gold);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: floatPetal 8s ease-in-out infinite;
+        }
+        .hero-sparkle {
+            position: absolute;
+            color: var(--pink-soft);
+            opacity: 0.7;
+            pointer-events: none;
+            animation: twinkle 2.6s ease-in-out infinite;
+        }
+
+        /* ===== Faint section flower decoration ===== */
+        .section-deco {
+            position: absolute;
+            color: var(--accent-gold);
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 0;
+        }
  
         /* Top Bar */
         .top-bar {
-            background-color: #050a18;
-            color: #94a3b8;
+            background-color: var(--primary-color);
+            color: #f1d9e0;
             font-size: 0.85rem;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
  
         /* Navbar Modern */
         .navbar {
-            background-color: var(--primary-color) !important;
+            background-color: #ffffff !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 24px rgba(107, 58, 78, 0.08);
             padding: 14px 0;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(107, 58, 78, 0.06);
         }
-        .navbar-brand img {
-            height: 48px;
-            width: auto;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-        }
-        .navbar-brand:hover img {
-            transform: rotate(-6deg) scale(1.08);
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(107, 58, 78, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         .nav-link {
-            color: #cbd5e1 !important;
+            color: var(--primary-color) !important;
             font-weight: 500;
-            padding: 8px 14px !important;
+            padding: 8px 18px !important;
             font-size: 0.95rem;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            left: 14px;
-            right: 14px;
-            bottom: 2px;
-            height: 2px;
-            background: var(--accent-gold);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
+            border-radius: 50px;
+            transition: all 0.3s ease;
         }
         .nav-link:hover, .nav-link.active {
-            color: var(--accent-gold) !important;
-        }
-        .nav-link:hover::after, .nav-link.active::after {
-            transform: scaleX(1);
+            color: #ffffff !important;
+            background-color: var(--accent-gold);
         }
  
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, #091026 0%, #17244a 100%);
-            color: white;
+            background: linear-gradient(135deg, #FFF6F3 0%, var(--pink-soft) 100%);
+            color: var(--primary-color);
             padding: 130px 0;
             position: relative;
             overflow: hidden;
@@ -130,8 +223,11 @@
             content: '';
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
-            background: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            background: radial-gradient(circle at 80% 20%, rgba(230, 130, 159, 0.25) 0%, transparent 50%);
             pointer-events: none;
+        }
+        .hero-section .text-white-50 {
+            color: rgba(107, 58, 78, 0.72) !important;
         }
         .hero-section .badge.animate-in {
             animation: fadeInUp 0.8s ease both;
@@ -146,11 +242,11 @@
             animation: fadeInUp 0.9s ease 0.45s both;
         }
         .text-gold {
-            color: var(--accent-gold);
+            color: var(--primary-light);
         }
         .btn-gold {
             background-color: var(--accent-gold);
-            color: #091026;
+            color: var(--primary-color);
             font-weight: 700;
             border: none;
             padding: 14px 36px;
@@ -171,31 +267,43 @@
         .btn-gold:hover::before { left: 130%; }
         .btn-gold:hover {
             background-color: var(--accent-gold-hover);
-            color: #091026;
+            color: var(--primary-color);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 25px rgba(216, 140, 160, 0.45);
+        }
+        .btn-gold-glow {
+            animation: ctaGlow 2.4s ease-in-out infinite;
+        }
+        .btn-gold-glow:hover {
+            animation: none;
         }
         .btn-outline-light {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
             transition: all 0.3s ease;
         }
         .btn-outline-light:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #ffffff;
             transform: translateY(-3px);
         }
  
         /* Cards & Professional Elements */
         .card {
             border: none;
-            border-radius: 16px;
+            border-radius: 22px;
             transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
             overflow: hidden;
             background: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 30px rgba(107, 58, 78, 0.05);
+            border: 1px solid #f7ebee;
         }
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 22px 42px rgba(230, 130, 159, 0.22);
+            border-color: rgba(230, 130, 159, 0.4);
         }
         .card-img-top {
             height: 240px;
@@ -214,31 +322,34 @@
             background-color: var(--bg-light);
         }
         .section-title {
-            font-weight: 800;
+            font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
             position: relative;
             display: inline-block;
         }
+        .section-title {
+            margin-bottom: 32px;
+        }
         .section-title::after {
-            content: '';
+            content: '\f3cf';
+            font-family: 'bootstrap-icons';
             position: absolute;
             left: 50%;
-            bottom: -10px;
-            width: 0;
-            height: 3px;
-            background: var(--accent-gold);
-            transform: translateX(-50%);
-            transition: width 0.6s ease;
-            border-radius: 3px;
+            bottom: -26px;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .text-center .section-title.aos-animate::after,
         .section-title.title-line::after {
-            width: 70px;
+            transform: translateX(-50%) scale(1);
+            animation: flowerPulse 4s ease-in-out infinite;
         }
         .section-subtitle {
-            color: #64748b;
+            color: #8a6b74;
             max-width: 650px;
             margin: 0 auto 60px auto;
             font-size: 1.05rem;
@@ -247,17 +358,17 @@
  
         /* Visi Misi Box */
         .vision-mission-box {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            background: linear-gradient(135deg, #ffffff 0%, var(--bg-light) 100%);
             border-left: 5px solid var(--accent-gold);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(107, 58, 78, 0.05);
             padding: 35px;
             height: 100%;
             transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
         .vision-mission-box:hover {
             transform: translateY(-6px);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+            box-shadow: 0 18px 35px rgba(107, 58, 78, 0.12);
         }
         .vision-mission-box .fs-2 {
             display: inline-block;
@@ -269,7 +380,7 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            background: rgba(9, 16, 38, 0.75);
+            background: rgba(107, 58, 78, 0.78);
             backdrop-filter: blur(5px);
             color: var(--accent-gold);
             padding: 6px 14px;
@@ -286,20 +397,20 @@
         /* Sertifikat Styling */
         .cert-card {
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #f3dee3;
             border-radius: 14px;
             padding: 16px;
             transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         }
         .cert-card:hover {
             transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
-            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 38px rgba(230, 130, 159, 0.2);
+            border-color: rgba(230, 130, 159, 0.5);
         }
         .cert-img {
             height: 230px;
             object-fit: contain;
-            background-color: #f8fafc;
+            background-color: var(--bg-light);
             border-radius: 10px;
             padding: 10px;
             transition: transform 0.3s ease;
@@ -311,16 +422,16 @@
         /* Testimonial & Instructor Cards */
         .instructor-card {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 22px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 30px rgba(107, 58, 78, 0.05);
+            border: 1px solid #f7ebee;
             height: 100%;
             transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
         .instructor-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 38px rgba(230, 130, 159, 0.2);
         }
         .instructor-card img {
             transition: transform 0.4s ease;
@@ -331,6 +442,12 @@
  
         .card .text-gold.mb-2 {
             letter-spacing: 3px;
+            display: inline-block;
+            animation: starPulse 2.4s ease-in-out infinite;
+        }
+        @keyframes starPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.55; }
         }
  
         /* Star rating subtle animation */
@@ -372,7 +489,7 @@
         /* Footer */
         footer {
             background-color: var(--primary-color);
-            color: #94a3b8;
+            color: #e9c9d2;
             padding: 70px 0 30px 0;
             border-top: 3px solid var(--accent-gold);
         }
@@ -381,6 +498,25 @@
         }
         footer p:hover i {
             transform: scale(1.2) rotate(-6deg);
+        }
+        .social-icon-link {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(216, 140, 160, 0.12);
+            border: 1px solid rgba(216, 140, 160, 0.4);
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .social-icon-link:hover {
+            background: var(--accent-gold);
+            color: var(--primary-color);
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
         }
  
         /* back to top */
@@ -393,7 +529,7 @@
             border-radius: 50%;
             background: var(--primary-color);
             color: var(--accent-gold);
-            border: 1px solid rgba(212,175,55,0.4);
+            border: 1px solid rgba(216, 140, 160, 0.45);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -419,33 +555,33 @@
         /* ===== Video Kegiatan ===== */
         .video-card {
             background: #fff;
-            border: 1px solid #f1f5f9;
+            border: 1px solid #f7ebee;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 30px rgba(107, 58, 78, 0.05);
             transition: all 0.35s ease;
             height: 100%;
         }
         .video-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(107, 58, 78, 0.10);
+            border-color: rgba(216, 140, 160, 0.35);
         }
         .video-card video {
             display: block;
             width: 100%;
             height: 260px;
             object-fit: cover;
-            background: #050a18;
+            background: var(--primary-color);
         }
         .video-card .video-info {
             padding: 20px;
         }
         .video-badge {
             display: inline-block;
-            background: rgba(9,16,38,0.08);
+            background: rgba(107, 58, 78, 0.08);
             color: var(--primary-color);
-            border: 1px solid rgba(212,175,55,0.35);
+            border: 1px solid rgba(216, 140, 160, 0.4);
             padding: 5px 12px;
             border-radius: 50px;
             font-size: 0.72rem;
@@ -475,11 +611,13 @@
     </div>
  
     <!-- Navbar Utama -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                <img src="logo.png" alt="Logo Melati Santina Utama">
-                <span class="fw-bold fs-5 text-white">MELATI <span class="text-gold">SANTINA UTAMA</span></span>
+                <div class="logo-ring">
+                    <img src="logo.png" alt="Logo Melati Santina Utama">
+                </div>
+                <span class="fw-bold fs-5">MELATI <span class="text-gold">SANTINA UTAMA</span></span>
             </a>
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -503,15 +641,22 @@
  
     <!-- Beranda / Hero Section -->
     <header id="beranda" class="hero-section text-center">
-        <div class="float-shape" style="width:120px;height:120px;background:var(--accent-gold);top:15%;left:8%;animation-duration:8s;"></div>
-        <div class="float-shape" style="width:70px;height:70px;background:#ffffff;top:65%;left:85%;animation-duration:6s;animation-delay:1s;"></div>
-        <div class="float-shape" style="width:50px;height:50px;background:var(--accent-gold);top:75%;left:12%;animation-duration:9s;animation-delay:2s;"></div>
+        <div class="float-shape" style="width:160px;height:160px;background:var(--accent-gold);top:10%;left:6%;animation-duration:9s;"></div>
+        <div class="float-shape" style="width:90px;height:90px;background:#ffffff;top:62%;left:88%;animation-duration:7s;animation-delay:1s;"></div>
+        <div class="float-shape" style="width:70px;height:70px;background:var(--primary-light);top:78%;left:10%;animation-duration:10s;animation-delay:2s;"></div>
+        <i class="bi bi-flower3 hero-petal" style="top:14%; left:10%; font-size:2.2rem; animation-duration:7s;"></i>
+        <i class="bi bi-flower2 hero-petal" style="top:70%; left:14%; font-size:1.6rem; animation-duration:9s; animation-delay:1.2s;"></i>
+        <i class="bi bi-flower1 hero-petal" style="top:22%; left:88%; font-size:1.8rem; animation-duration:8s; animation-delay:0.6s;"></i>
+        <i class="bi bi-flower3 hero-petal" style="top:75%; left:82%; font-size:2rem; animation-duration:10s; animation-delay:1.8s;"></i>
+        <i class="bi bi-stars hero-sparkle" style="top:30%; left:22%; font-size:1.1rem; animation-delay:0.3s;"></i>
+        <i class="bi bi-stars hero-sparkle" style="top:20%; left:70%; font-size:0.9rem; animation-delay:1s;"></i>
+        <i class="bi bi-stars hero-sparkle" style="top:60%; left:60%; font-size:1rem; animation-delay:1.6s;"></i>
         <div class="container py-4">
             <span class="badge bg-dark text-gold border border-gold mb-3 px-3 py-2 rounded-pill fw-semibold shadow-sm animate-in">Pusat Pelatihan Keterampilan Vokasi Profesional Sejak 2000</span>
             <h1 class="display-4 fw-bold mb-4">Membangun Kemandirian Melalui <br><span class="text-gold">Keahlian Vokasi Unggul</span></h1>
             <p class="lead text-white-50 mx-auto section-subtitle">Satu-satunya Tempat Uji Kompetensi (TUK) Bidang Tata Busana di Kota Depok yang berorientasi pada kemandirian ekonomi masyarakat.</p>
             <div class="d-flex justify-content-center gap-3 mt-4 hero-btns">
-                <a href="#program" class="btn btn-gold btn-lg shadow">Jelajahi Program Kursus</a>
+                <a href="#program" class="btn btn-gold btn-gold-glow btn-lg shadow">Jelajahi Program Kursus</a>
                 <a href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20ingin%20konsultasi%20program%20pelatihan." target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-4">Konsultasi via WA</a>
             </div>
         </div>
@@ -578,8 +723,10 @@
     </section>
  
     <!-- Program Kursus Section -->
-    <section id="program" class="bg-light-custom">
-        <div class="container">
+    <section id="program" class="bg-light-custom" style="position:relative; overflow:hidden;">
+        <i class="bi bi-flower2 section-deco" style="top:-70px; right:-70px; font-size:260px; transform:rotate(15deg);"></i>
+        <i class="bi bi-flower3 section-deco" style="bottom:-90px; left:-90px; font-size:220px; transform:rotate(-18deg);"></i>
+        <div class="container" style="position:relative; z-index:1;">
             <div class="text-center" data-aos="fade-up">
                 <h6 class="text-gold fw-bold text-uppercase tracking-wider">Kurikulum & Layanan</h6>
                 <h2 class="section-title title-line">Daftar Program Kursus</h2>
@@ -1054,6 +1201,14 @@
             <p class="text-light mb-2"><i class="bi bi-telephone-fill text-gold me-2"></i> No. Telp/WA: 085695434343</p>
             <p class="text-light mb-4"><i class="bi bi-envelope-fill text-gold me-2"></i> Email: yayasanmelatisantinautama@gmail.com</p>
             <p class="text-light mb-4"><i class="bi bi-clock-fill text-gold me-2"></i> Jam Operasional: Senin s/d Sabtu dari Jam 09.00 s/d 18.00</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="https://www.instagram.com/melati.santina.utama?utm_source=qr" target="_blank" rel="noopener" class="social-icon-link" aria-label="Instagram Melati Santina Utama">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@melatisantina?_r=1&_t=ZS-99KaiY5NLM7" target="_blank" rel="noopener" class="social-icon-link" aria-label="TikTok Melati Santina Utama">
+                    <i class="bi bi-tiktok"></i>
+                </a>
+            </div>
             <hr class="border-secondary my-4" style="opacity: 0.15;">
             <p class="small text-muted mb-0">&copy; 2026 Melati Santina Utama. All Rights Reserved.</p>
         </div>
@@ -1106,66 +1261,137 @@
 
         async function loadGalleryContent() {
     const grid = document.getElementById('galeriGrid');
+    if (!grid) return;
+
     try {
         const res = await fetch('https://lkp-melati-api-production.up.railway.app/api/gallery');
         if (!res.ok) throw new Error('API Error');
-        
-        const data = await res.json();
-        if (!data || !data.length) {
-            grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Belum ada dokumentasi kegiatan.</div>';
+
+        let data = await res.json();
+        if (data && !Array.isArray(data)) {
+            data = data.content || data.data || [];
+        }
+
+        if (Array.isArray(data) && data.length > 0) {
+            grid.innerHTML = data.map(item => {
+                let mediaSrc = item.mediaUrl || '';
+                if (mediaSrc && !mediaSrc.startsWith('http')) {
+                    mediaSrc = `./${mediaSrc}`;
+                }
+
+                return `
+                    <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+                        <div class="card h-100 shadow-sm border-0">
+                            ${item.category ? `<span class="gallery-badge">${item.category}</span>` : ''}
+                            ${item.mediaType === 'VIDEO'
+                                ? `<video src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" controls></video>`
+                                : `<img src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" alt="${item.title || 'Galeri'}" onerror="this.src='./KEGIATAN MEJAHIT.jpg'">`
+                            }
+                            <div class="card-body">
+                                <h5 class="fw-bold">${item.title || 'Dokumentasi Kegiatan'}</h5>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
             return;
         }
 
-        grid.innerHTML = data.map(item => {
-            // Jika mediaUrl bukan link lengkap (http), otomatis arahkan ke nama file lokal/Railway
-            let mediaSrc = item.mediaUrl || '';
-            if (mediaSrc && !mediaSrc.startsWith('http')) {
-                mediaSrc = `./${mediaSrc}`; 
-            }
-
-            return `
-                <div class="col-md-4" data-aos="zoom-in-up" data-aos-duration="600">
-                    <div class="card h-100 position-relative">
-                        ${item.category ? `<span class="gallery-badge">${item.category}</span>` : ''}
-                        ${item.mediaType === 'VIDEO'
-                            ? `<video src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" controls></video>`
-                            : `<img src="${mediaSrc}" class="card-img-top" style="height:220px;object-fit:cover;" alt="${item.title || ''}">`
-                        }
-                        <div class="card-body">
-                            <h5 class="fw-bold">${item.title || ''}</h5>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
+        renderDefaultGallery(grid);
 
     } catch (err) {
-        console.error('Gagal memuat galeri:', err);
-        // Fallback: Jika API Railway mati/kosong, tampilkan galeri statis default agar tetap ada isinya saat presentasi
-        grid.innerHTML = `
-            <div class="col-md-4">
-                <div class="card h-100 position-relative">
-                    <span class="gallery-badge">JAHIT</span>
-                    <img src="./KEGIATAN MEJAHIT.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Menjahit">
-                    <div class="card-body"><h5 class="fw-bold">Kegiatan Menjahit</h5></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 position-relative">
-                    <span class="gallery-badge">TATA RIAS</span>
-                    <img src="./KEGIATAN TATA RIAS.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Tata Rias">
-                    <div class="card-body"><h5 class="fw-bold">Pelatihan Tata Rias</h5></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 position-relative">
-                    <span class="gallery-badge">CRAFT</span>
-                    <img src="./HANDICRAFT.jpg" class="card-img-top" style="height:220px;object-fit:cover;" alt="Handicraft">
-                    <div class="card-body"><h5 class="fw-bold">Kerajinan Tangan</h5></div>
-                </div>
-            </div>
-        `;
+        console.error('API Galeri bermasalah, menampilkan data lokal:', err);
+        renderDefaultGallery(grid);
     }
+}
+
+function renderDefaultGallery(grid) {
+    grid.innerHTML = `
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">JAHIT</span>
+                <img src="./KEGIATAN MEJAHIT.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Menjahit">
+                <div class="card-body"><h5 class="fw-bold">Pelatihan Menjahit</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">TATA RIAS</span>
+                <img src="./KEGIATAN TATA RIAS 2.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kegiatan Tata Rias">
+                <div class="card-body"><h5 class="fw-bold">Pelatihan Tata Rias</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">TATA RIAS</span>
+                <img src="./KEGIATAN TATA RIAS 3.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Praktik Rias Wajah">
+                <div class="card-body"><h5 class="fw-bold">Praktik Rias Kecantikan</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">TATA RIAS</span>
+                <img src="./KEGIATAN TATA RIAS 4.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Ujian Rias">
+                <div class="card-body"><h5 class="fw-bold">Ujian Tata Rias</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">CRAFT</span>
+                <img src="./HANDICRAFT.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Handicraft">
+                <div class="card-body"><h5 class="fw-bold">Kerajinan Tangan</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">CRAFT</span>
+                <img src="./HANDICRAFT 2.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Hasil Handicraft">
+                <div class="card-body"><h5 class="fw-bold">Pameran Hasil Karya</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">FOTOGRAFI</span>
+                <img src="./KEGIATAN FOTOGRAFI DASAR.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Fotografi Dasar">
+                <div class="card-body"><h5 class="fw-bold">Kelas Fotografi Dasar</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">FOTOGRAFI</span>
+                <img src="./KEGIATAN FOTOGRAFI DASAR 2.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Praktik Kamera">
+                <div class="card-body"><h5 class="fw-bold">Praktik Setting Kamera</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">FOTOGRAFI</span>
+                <img src="./KEGIATAN FOTOGRAFI DASAR 3.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Fotografi Studio">
+                <div class="card-body"><h5 class="fw-bold">Teknik Lighting Fotografi</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">BOGA</span>
+                <img src="./KEGIATAN OLAHAN MAKANAN.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Olahan Makanan">
+                <div class="card-body"><h5 class="fw-bold">Pelatihan Tata Boga</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">BOGA</span>
+                <img src="./KEGIATAN OLAHAN MAKANAN 3.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Kreasi Masakan">
+                <div class="card-body"><h5 class="fw-bold">Kreasi Olahan Makanan</h5></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="zoom-in-up">
+            <div class="card h-100 shadow-sm border-0">
+                <span class="gallery-badge">BUSANA</span>
+                <img src="./TATA BUSANA KEGIATAN MENJAHIT.jpg" loading="lazy" decoding="async" class="card-img-top" style="height:220px;object-fit:cover;" alt="Tata Busana">
+                <div class="card-body"><h5 class="fw-bold">Praktik Tata Busana</h5></div>
+            </div>
+        </div>
+    `;
 }
 
         loadSiteSettings();
