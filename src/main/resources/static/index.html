@@ -1275,8 +1275,9 @@
         if (Array.isArray(data) && data.length > 0) {
             grid.innerHTML = data.map(item => {
                 let mediaSrc = item.mediaUrl || '';
-                if (mediaSrc && !mediaSrc.startsWith('http')) {
-                    mediaSrc = `./${mediaSrc}`;
+              if (mediaSrc && !mediaSrc.startsWith('http')) {
+    // Menambahkan domain Railway jika path gambar bersifat relatif
+    mediaSrc = `https://lkp-melati-api-production.up.railway.app${mediaSrc.startsWith('/') ? '' : '/'}${mediaSrc}`;
                 }
 
                 return `
