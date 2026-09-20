@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -22,8 +24,25 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                // 1. Izinkan akses publik ke semua file static HTML, Gambar, CSS, dan JS
+                .requestMatchers(
+                    "/", 
+                    "/*.html", 
+                    "/*.jpg", 
+                    "/*.png", 
+                    "/*.css", 
+                    "/*.js", 
+                    "/static/**", 
+                    "/css/**", 
+                    "/js/**", 
+                    "/images/**"
+                ).permitAll()
+                
+                // 2. Izinkan API public & Auth
                 .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                
+                // 3. Sisa request API lainnya harus login (authenticated)
                 .anyRequest().authenticated()
             );
 
@@ -31,8 +50,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public org.springframework.security.crypto.password.PasswordEncoder passwordEncoder() {
-        return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -46,4 +65,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-}
+} 
