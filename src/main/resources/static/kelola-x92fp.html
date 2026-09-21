@@ -10,12 +10,62 @@
         .content { margin-left: 280px; padding: 20px; }
         .tab-section { display: none; }
         .tab-section.active { display: block; }
+        
+        /* Modal Overlay untuk Login */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
 
+<!-- OVERLAY LOGIN ADMIN -->
+<div id="loginOverlay">
+    <div class="login-card text-center">
+        <h4 class="fw-bold mb-1">Panel Kelola</h4>
+        <p class="text-muted small mb-4">Khusus admin. Silakan login.</p>
+        
+        <div id="loginError" class="alert alert-danger p-2 small d-none" role="alert">
+            Username atau password salah.
+        </div>
+
+        <form id="form-login">
+            <div class="mb-3 text-start">
+                <label class="form-label small fw-semibold">Username</label>
+                <input type="text" id="login-username" class="form-control" placeholder="Masukkan username" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label class="form-label small fw-semibold">Password</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Masukkan password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mt-2">Masuk</button>
+        </form>
+    </div>
+</div>
+
 <div class="sidebar">
-    <h4>Admin Panel</h4>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="m-0">Admin Panel</h4>
+    </div>
+    <button class="btn btn-outline-danger btn-sm mb-3 w-100" onclick="logoutAdmin()">Logout</button>
     <hr>
     <div class="nav flex-column nav-pills">
         <button class="nav-link active" onclick="switchTab('courses', event)">Program Kursus</button>
@@ -149,6 +199,36 @@ const API_URL = window.location.hostname === "localhost" || window.location.host
     ? "http://localhost:8080/api"
     : "https://lkp-melati-api-production.up.railway.app/api";
 
+// Cek status session login saat halaman dimuat
+document.addEventListener("DOMContentLoaded", () => {
+    if (sessionStorage.getItem("adminLoggedIn") === "true") {
+        document.getElementById("loginOverlay").style.display = "none";
+        loadData('courses');
+    }
+});
+
+// Handling Form Login
+document.getElementById('form-login').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = document.getElementById('login-username').value.trim();
+    const pass = document.getElementById('login-password').value.trim();
+    const errorAlert = document.getElementById('loginError');
+
+    if (user === 'admin' && pass === 'admin123') {
+        sessionStorage.setItem("adminLoggedIn", "true");
+        document.getElementById("loginOverlay").style.display = "none";
+        errorAlert.classList.add('d-none');
+        loadData('courses');
+    } else {
+        errorAlert.classList.remove('d-none');
+    }
+});
+
+function logoutAdmin() {
+    sessionStorage.removeItem("adminLoggedIn");
+    location.reload();
+}
+
 function switchTab(tab, evt) {
     document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
@@ -158,6 +238,8 @@ function switchTab(tab, evt) {
 }
 
 async function loadData(entity) {
+    if (sessionStorage.getItem("adminLoggedIn") !== "true") return;
+
     try {
         if (entity === 'settings') {
             const res = await fetch(`${API_URL}/settings`);
@@ -208,6 +290,8 @@ async function deleteData(entity, id) {
 
 // Auto Bind Forms
 document.querySelectorAll('form').forEach(form => {
+    if (form.id === 'form-login') return;
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = form.id.replace('form-', '');
@@ -250,9 +334,6 @@ document.querySelectorAll('form').forEach(form => {
         form.reset();
     });
 });
-
-// Load default tab
-loadData('courses');
 </script>
 </body>
 </html>

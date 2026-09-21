@@ -2,8 +2,10 @@ package com.lkpmelati.api.config;
 
 import com.lkpmelati.api.model.MediaGallery;
 import com.lkpmelati.api.model.Course;
+import com.lkpmelati.api.model.User;
 import com.lkpmelati.api.repository.MediaGalleryRepository;
 import com.lkpmelati.api.repository.CourseRepository;
+import com.lkpmelati.api.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +14,35 @@ public class DataSeeder implements CommandLineRunner {
 
     private final MediaGalleryRepository mediaGalleryRepository;
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
-    public DataSeeder(MediaGalleryRepository mediaGalleryRepository, CourseRepository courseRepository) {
+    public DataSeeder(
+            MediaGalleryRepository mediaGalleryRepository,
+            CourseRepository courseRepository,
+            UserRepository userRepository) {
         this.mediaGalleryRepository = mediaGalleryRepository;
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) {
+        seedUser();
         seedGallery();
         seedCourse();
+    }
+
+    private void seedUser() {
+        if (userRepository.count() > 0) {
+            return;
+        }
+
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("admin123");
+        admin.setRole("ADMIN");
+
+        userRepository.save(admin);
     }
 
     private void seedGallery() {
