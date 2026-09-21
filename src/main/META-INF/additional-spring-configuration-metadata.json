@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.admin-path",
+      "type": "java.lang.String",
+      "description": "Alamat rahasia panel admin (tanpa slash depan/belakang). Harus sama dengan nama file HTML di static/."
+    },
+    {
+      "name": "app.upload-dir",
+      "type": "java.lang.String",
+      "description": "Folder tempat menyimpan file foto/video yang diupload dari panel admin."
+    }
+  ]
+}

@@ -1,3 +1,7 @@
-public class CourseRepository {
-    
+package com.lkpmelati.api.repository;
+
+import com.lkpmelati.api.model.Course;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CourseRepository extends JpaRepository<Course, Long> {
 }

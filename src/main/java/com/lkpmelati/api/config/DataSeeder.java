@@ -1,41 +1,32 @@
 package com.lkpmelati.api.config;
 
-import com.lkpmelati.api.model.Gallery;
-import com.lkpmelati.api.model.Program;
-import com.lkpmelati.api.repository.GalleryRepository;
-import com.lkpmelati.api.repository.ProgramRepository;
+import com.lkpmelati.api.model.MediaGallery;
+import com.lkpmelati.api.model.Course;
+import com.lkpmelati.api.repository.MediaGalleryRepository;
+import com.lkpmelati.api.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-/**
- * Supaya foto-foto kegiatan yang tadinya hardcode langsung di index.html
- * TIDAK HILANG setelah bagian Galeri diganti jadi dinamis -- begitu aplikasi
- * pertama kali jalan dan tabel "gallery" masih kosong, data ini otomatis
- * dimasukkan. Setelah itu semuanya bisa diedit/dihapus/ditambah lewat panel admin.
- *
- * File foto aslinya tetap ada di /static (tidak dihapus), jadi seeder ini
- * cukup mereferensikan nama filenya saja.
- */
 @Component
 public class DataSeeder implements CommandLineRunner {
 
-    private final GalleryRepository galleryRepository;
-    private final ProgramRepository programRepository;
+    private final MediaGalleryRepository mediaGalleryRepository;
+    private final CourseRepository courseRepository;
 
-    public DataSeeder(GalleryRepository galleryRepository, ProgramRepository programRepository) {
-        this.galleryRepository = galleryRepository;
-        this.programRepository = programRepository;
+    public DataSeeder(MediaGalleryRepository mediaGalleryRepository, CourseRepository courseRepository) {
+        this.mediaGalleryRepository = mediaGalleryRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Override
     public void run(String... args) {
         seedGallery();
-        seedProgram();
+        seedCourse();
     }
 
     private void seedGallery() {
-        if (galleryRepository.count() > 0) {
-            return; // sudah pernah diisi / sudah dikelola manual oleh admin, jangan timpa
+        if (mediaGalleryRepository.count() > 0) {
+            return; 
         }
 
         String[][] seedData = {
@@ -56,29 +47,21 @@ public class DataSeeder implements CommandLineRunner {
         };
 
         for (String[] row : seedData) {
-            Gallery g = new Gallery();
+            MediaGallery g = new MediaGallery();
             g.setTitle(row[0]);
             g.setCategory(row[1]);
             g.setMediaUrl(row[2]);
             g.setMediaType("PHOTO");
-            galleryRepository.save(g);
+            mediaGalleryRepository.save(g);
         }
     }
 
-    /**
-     * Supaya isi section "Daftar Program Kursus" yang tadinya hardcode langsung
-     * di index.html TIDAK HILANG setelah bagian ini diganti jadi dinamis --
-     * begitu aplikasi pertama kali jalan dan tabel "programs" masih kosong,
-     * data ini otomatis dimasukkan persis seperti tampilan lama. Setelah itu
-     * semuanya bisa diedit/dihapus/ditambah (termasuk video) lewat panel admin.
-     */
-    private void seedProgram() {
-        if (programRepository.count() > 0) {
-            return; // sudah pernah diisi / sudah dikelola manual oleh admin, jangan timpa
+    private void seedCourse() {
+        if (courseRepository.count() > 0) {
+            return; 
         }
 
-        // a. Tata Busana -- kartu detail dengan daftar poin
-        Program tataBusana = new Program();
+        Course tataBusana = new Course();
         tataBusana.setNamaProgram("a. Tata Busana");
         tataBusana.setIcon("bi-scissors");
         tataBusana.setDeskripsi("Program lengkap dari tingkat dasar hingga mahir dan keahlian khusus:");
@@ -93,30 +76,27 @@ public class DataSeeder implements CommandLineRunner {
                 "Keterampilan Terkait"
         ));
         tataBusana.setUrutan(1);
-        programRepository.save(tataBusana);
+        courseRepository.save(tataBusana);
 
-        // b. Handicraft -- kartu ringkas
-        Program handicraft = new Program();
+        Course handicraft = new Course();
         handicraft.setNamaProgram("b. Handicraft");
         handicraft.setIcon("bi-palette");
         handicraft.setDeskripsi("Pelatihan kerajinan tangan kreatif dan bernilai seni tinggi.");
         handicraft.setUrutan(2);
-        programRepository.save(handicraft);
+        courseRepository.save(handicraft);
 
-        // c. Photografi -- kartu ringkas
-        Program fotografi = new Program();
+        Course fotografi = new Course();
         fotografi.setNamaProgram("c. Photografi");
         fotografi.setIcon("bi-camera-fill");
         fotografi.setDeskripsi("Teknik dasar hingga pemotretan profesional.");
         fotografi.setUrutan(3);
-        programRepository.save(fotografi);
+        courseRepository.save(fotografi);
 
-        // d. Tata Rias Pengantin & e. Tata Boga -- kartu ringkas
-        Program riasBoga = new Program();
+        Course riasBoga = new Course();
         riasBoga.setNamaProgram("d. Tata Rias Pengantin & e. Tata Boga");
         riasBoga.setIcon("bi-brush");
         riasBoga.setDeskripsi("Keahlian rias pengantin tradisional/modern serta olahan kuliner.");
         riasBoga.setUrutan(4);
-        programRepository.save(riasBoga);
+        courseRepository.save(riasBoga);
     }
 }

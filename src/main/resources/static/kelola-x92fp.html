@@ -2,551 +2,257 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Panel Kelola</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin Panel - LKP Melati Santina Utama</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f4f6f9; }
-        .sidebar { width: 260px; height: 100vh; position: fixed; top: 0; left: 0; background-color: #ffffff; border-right: 1px solid #e9ecef; z-index: 1000; }
-        .main-content { margin-left: 260px; padding: 30px; }
-        .nav-link { color: #6c757d; padding: 12px 20px; border-radius: 8px; margin-bottom: 5px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 12px; }
-        .nav-link:hover, .nav-link.active { color: #0d6efd; background-color: #e7f1ff; }
-        .card-custom { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #fff; }
-        .card-header { background: transparent; border-bottom: 1px solid #f1f1f1; padding: 20px 24px; font-weight: 700; }
-        .btn-primary-custom { background-color: #0d6efd; color: white; border-radius: 8px; padding: 10px 20px; font-weight: 600; border: none; }
-        .btn-primary-custom:hover { background-color: #0b5ed7; color: white; }
-        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
-        #loginScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #091026 0%, #17244a 100%); }
-        .login-card { width: 100%; max-width: 380px; border-radius: 16px; }
-        .gallery-thumb { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; background: #eee; }
-        .prog-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; background: #eee; }
+        body { background: #f8f9fa; }
+        .sidebar { width: 260px; position: fixed; top: 0; bottom: 0; background: #fff; border-right: 1px solid #ddd; padding: 20px; }
+        .content { margin-left: 280px; padding: 20px; }
+        .tab-section { display: none; }
+        .tab-section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <!-- ============ LAYAR LOGIN ============ -->
-    <div id="loginScreen">
-        <div class="card card-custom login-card p-4">
-            <div class="text-center mb-3">
-                <img src="/logo.png" alt="Logo" width="56" height="56" style="border-radius:50%;object-fit:cover;" onerror="this.style.display='none'">
-                <h5 class="fw-bold mt-2 mb-0">Panel Kelola</h5>
-                <p class="text-muted small">Khusus admin. Silakan login.</p>
-            </div>
-            <form id="loginForm">
-                <div class="mb-3">
-                    <label class="form-label small fw-semibold">Username</label>
-                    <input type="text" class="form-control" id="loginUsername" required autocomplete="username">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-semibold">Password</label>
-                    <input type="password" class="form-control" id="loginPassword" required autocomplete="current-password">
-                </div>
-                <div id="loginError" class="text-danger small mb-2" style="display:none;"></div>
-                <button type="submit" class="btn btn-primary-custom w-100">Masuk</button>
-            </form>
-        </div>
+<div class="sidebar">
+    <h4>Admin Panel</h4>
+    <hr>
+    <div class="nav flex-column nav-pills">
+        <button class="nav-link active" onclick="switchTab('courses', event)">Program Kursus</button>
+        <button class="nav-link" onclick="switchTab('instructors', event)">Struktur Pengajar</button>
+        <button class="nav-link" onclick="switchTab('facilities', event)">Fasilitas</button>
+        <button class="nav-link" onclick="switchTab('gallery', event)">Galeri & Video</button>
+        <button class="nav-link" onclick="switchTab('certificates', event)">Sertifikat & Legalitas</button>
+        <button class="nav-link" onclick="switchTab('testimonials', event)">Testimoni</button>
+        <button class="nav-link" onclick="switchTab('settings', event)">Pengaturan Situs</button>
+    </div>
+</div>
+
+<div class="content">
+    <!-- SECTION COURSES -->
+    <div id="sec-courses" class="tab-section active">
+        <h3>Kelola Program Kursus</h3>
+        <form id="form-course" class="card p-3 mb-4">
+            <input type="hidden" id="course-id">
+            <div class="mb-2"><input type="text" id="course-title" class="form-control" placeholder="Nama Program" required></div>
+            <div class="mb-2"><textarea id="course-desc" class="form-control" placeholder="Deskripsi"></textarea></div>
+            <div class="mb-2"><input type="text" id="course-duration" class="form-control" placeholder="Jadwal (contoh: Senin & Rabu)"></div>
+            <div class="mb-2"><input type="number" id="course-price" class="form-control" placeholder="Harga (Rp)"></div>
+            <button type="submit" class="btn btn-primary">Simpan Program</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Nama Program</th><th>Jadwal</th><th>Harga</th><th>Aksi</th></tr></thead>
+            <tbody id="list-courses"></tbody>
+        </table>
     </div>
 
-    <!-- ============ DASHBOARD (baru muncul setelah login) ============ -->
-    <div id="dashboardScreen" style="display:none;">
-        <div class="sidebar p-3">
-            <div class="d-flex align-items-center gap-2 mb-4 px-3 py-2">
-                <img src="/logo.png" alt="Logo" width="36" height="36" style="border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
-                <h5 class="fw-bold m-0">Panel Kelola</h5>
-            </div>
-            <nav class="nav flex-column">
-                <a class="nav-link" onclick="switchTab('program', event)"><i class="bi bi-grid fs-5"></i> Kelola Program</a>
-                <a class="nav-link" onclick="switchTab('galeri', event)"><i class="bi bi-images fs-5"></i> Galeri Kegiatan</a>
-                <a class="nav-link active" onclick="switchTab('setting', event)"><i class="bi bi-gear fs-5"></i> Pengaturan Website</a>
-                <a class="nav-link text-danger" onclick="logout()"><i class="bi bi-box-arrow-right fs-5"></i> Keluar</a>
-            </nav>
-        </div>
-
-        <div class="main-content">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-bold m-0" id="page-title">Pengaturan Website</h4>
-                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold" id="whoami">Admin Active</span>
-            </div>
-
-            <!-- Kelola Program -->
-            <div id="section-program" style="display: none;">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <div class="card card-custom">
-                            <div class="card-header" id="programFormTitle">Tambah Program</div>
-                            <div class="card-body p-4">
-                                <form id="programForm">
-                                    <input type="hidden" id="programId">
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Nama Program</label>
-                                        <input type="text" class="form-control" id="namaProgram" placeholder="contoh: a. Tata Busana" required>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Icon (Bootstrap Icons)</label>
-                                        <input type="text" class="form-control" id="icon">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Deskripsi Singkat</label>
-                                        <textarea class="form-control" id="deskripsi" rows="2" placeholder="Kalimat singkat tentang program ini"></textarea>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Daftar Poin / Sub-Program (opsional)</label>
-                                        <textarea class="form-control" id="poin" rows="4" placeholder="Satu poin per baris, contoh:&#10;Reguler Level 2&#10;Reguler Level 3&#10;Privat Go to Home"></textarea>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Harga</label>
-                                        <input type="number" class="form-control" id="harga">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Jadwal</label>
-                                        <input type="text" class="form-control" id="jadwal">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Urutan Tampil</label>
-                                        <input type="number" class="form-control" id="urutan" placeholder="0" value="0">
-                                        <div class="form-text">Angka lebih kecil tampil lebih dulu di halaman utama.</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">Foto Program</label>
-                                        <input type="file" class="form-control" id="programImageFile" accept="image/*">
-                                        <img id="programImagePreview" class="prog-thumb mt-2" style="display:none;">
-                                        <input type="hidden" id="programImageUrl">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">Video Program (opsional)</label>
-                                        <input type="file" class="form-control" id="programVideoFile" accept="video/*">
-                                        <video id="programVideoPreview" class="w-100 rounded mt-2" style="display:none;max-height:160px;" controls></video>
-                                        <input type="hidden" id="programVideoUrl">
-                                        <div class="form-text">Video ini akan otomatis muncul di dalam kartu program di halaman utama.</div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary-custom w-100">Simpan Program</button>
-                                    <button type="button" class="btn btn-outline-secondary w-100 mt-2" id="cancelEditProgram" style="display:none;" onclick="resetProgramForm()">Batal Edit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="card card-custom">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span>Daftar Program / Pelatihan</span>
-                                <button class="btn btn-sm btn-outline-primary" onclick="loadProgram()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
-                                        <thead><tr><th>Foto</th><th>Nama Program</th><th>Tipe Kartu</th><th>Video</th><th>Harga</th><th>Aksi</th></tr></thead>
-                                        <tbody id="tableProgram"></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Galeri Kegiatan -->
-            <div id="section-galeri" style="display: none;">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <div class="card card-custom">
-                            <div class="card-header">Tambah Foto / Video</div>
-                            <div class="card-body p-4">
-                                <form id="galleryForm">
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Judul</label>
-                                        <input type="text" class="form-control" id="galTitle" required>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label small fw-semibold">Kategori</label>
-                                        <input type="text" class="form-control" id="galCategory" placeholder="Tata Busana, Handicraft, dll">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">File (Foto/Video)</label>
-                                        <input type="file" class="form-control" id="galFile" accept="image/*,video/*" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary-custom w-100">Upload ke Galeri</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="card card-custom">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span>Isi Galeri</span>
-                                <button class="btn btn-sm btn-outline-primary" onclick="loadGallery()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="row g-3" id="galleryGrid"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pengaturan Website -->
-            <div id="section-setting">
-                <div class="row g-4 mb-4">
-                    <div class="col-lg-6">
-                        <div class="card card-custom">
-                            <div class="card-header"><i class="bi bi-gear me-2 text-primary"></i>Edit Informasi Website</div>
-                            <div class="card-body p-4">
-                                <form id="settingsForm">
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">Nama Website / LPK</label>
-                                        <input type="text" class="form-control" id="siteName">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">Judul Hero Section</label>
-                                        <input type="text" class="form-control" id="heroTitle">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small fw-semibold">Nomor WhatsApp Admin</label>
-                                        <input type="text" class="form-control" id="waNumber">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary-custom w-100"><i class="bi bi-download me-1"></i> Simpan Perubahan</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- SECTION INSTRUCTORS -->
+    <div id="sec-instructors" class="tab-section">
+        <h3>Kelola Struktur Pengajar</h3>
+        <form id="form-instructor" class="card p-3 mb-4">
+            <input type="hidden" id="inst-id">
+            <div class="mb-2"><input type="text" id="inst-name" class="form-control" placeholder="Nama Pengajar" required></div>
+            <div class="mb-2"><input type="text" id="inst-role" class="form-control" placeholder="Jabatan/Keahlian"></div>
+            <div class="mb-2"><input type="text" id="inst-image" class="form-control" placeholder="URL Foto Pengajar"></div>
+            <button type="submit" class="btn btn-primary">Simpan Pengajar</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Foto</th><th>Nama</th><th>Jabatan</th><th>Aksi</th></tr></thead>
+            <tbody id="list-instructors"></tbody>
+        </table>
     </div>
 
-    <!-- Toast -->
-    <div class="toast-container">
-        <div id="liveToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body" id="toastMessage">Berhasil disimpan!</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
+    <!-- SECTION FACILITIES -->
+    <div id="sec-facilities" class="tab-section">
+        <h3>Kelola Fasilitas</h3>
+        <form id="form-facility" class="card p-3 mb-4">
+            <input type="hidden" id="fac-id">
+            <div class="mb-2"><input type="text" id="fac-title" class="form-control" placeholder="Nama Fasilitas" required></div>
+            <div class="mb-2"><textarea id="fac-desc" class="form-control" placeholder="Deskripsi Fasilitas"></textarea></div>
+            <button type="submit" class="btn btn-primary">Simpan Fasilitas</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
+            <tbody id="list-facilities"></tbody>
+        </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // ================= BASE API URL =================
-        const API_BASE = 'https://lkp-melati-api-production.up.railway.app';
+    <!-- SECTION GALLERY -->
+    <div id="sec-gallery" class="tab-section">
+        <h3>Kelola Galeri & Video</h3>
+        <form id="form-gallery" class="card p-3 mb-4">
+            <input type="hidden" id="gal-id">
+            <div class="mb-2"><input type="text" id="gal-title" class="form-control" placeholder="Judul Media"></div>
+            <div class="mb-2">
+                <select id="gal-type" class="form-control">
+                    <option value="IMAGE">Gambar</option>
+                    <option value="VIDEO">Video Embed</option>
+                </select>
+            </div>
+            <div class="mb-2"><input type="text" id="gal-url" class="form-control" placeholder="URL Gambar / Embed Video" required></div>
+            <button type="submit" class="btn btn-primary">Simpan Media</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Tipe</th><th>Judul</th><th>URL</th><th>Aksi</th></tr></thead>
+            <tbody id="list-gallery"></tbody>
+        </table>
+    </div>
 
-        // ================= AUTH =================
-        function getToken() { return localStorage.getItem('admin_token'); }
+    <!-- SECTION CERTIFICATES -->
+    <div id="sec-certificates" class="tab-section">
+        <h3>Kelola Sertifikat & Legalitas</h3>
+        <form id="form-cert" class="card p-3 mb-4">
+            <input type="hidden" id="cert-id">
+            <div class="mb-2"><input type="text" id="cert-title" class="form-control" placeholder="Nama Sertifikat/Legalitas" required></div>
+            <div class="mb-2"><input type="text" id="cert-issuer" class="form-control" placeholder="Penerbit (misal: Kemendikbud)"></div>
+            <div class="mb-2"><input type="text" id="cert-image" class="form-control" placeholder="URL Gambar Sertifikat"></div>
+            <button type="submit" class="btn btn-primary">Simpan Sertifikat</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Nama</th><th>Penerbit</th><th>Aksi</th></tr></thead>
+            <tbody id="list-certificates"></tbody>
+        </table>
+    </div>
 
-        function authHeaders(extra = {}) {
-            const token = getToken();
-            return token ? { ...extra, 'Authorization': 'Bearer ' + token } : extra;
+    <!-- SECTION TESTIMONIALS -->
+    <div id="sec-testimonials" class="tab-section">
+        <h3>Kelola Testimoni Alumni</h3>
+        <form id="form-testi" class="card p-3 mb-4">
+            <input type="hidden" id="testi-id">
+            <div class="mb-2"><input type="text" id="testi-name" class="form-control" placeholder="Nama Alumni" required></div>
+            <div class="mb-2"><input type="text" id="testi-course" class="form-control" placeholder="Program yang Diikuti"></div>
+            <div class="mb-2"><textarea id="testi-review" class="form-control" placeholder="Ulasan" required></textarea></div>
+            <button type="submit" class="btn btn-primary">Simpan Testimoni</button>
+        </form>
+        <table class="table table-bordered bg-white">
+            <thead><tr><th>Nama</th><th>Program</th><th>Aksi</th></tr></thead>
+            <tbody id="list-testimonials"></tbody>
+        </table>
+    </div>
+
+    <!-- SECTION SETTINGS -->
+    <div id="sec-settings" class="tab-section">
+        <h3>Pengaturan Situs Utama</h3>
+        <form id="form-setting" class="card p-3 mb-4">
+            <div class="mb-2"><label>Judul Website</label><input type="text" id="set-title" class="form-control"></div>
+            <div class="mb-2"><label>Sub-judul Hero</label><input type="text" id="set-hero" class="form-control"></div>
+            <div class="mb-2"><label>Nomor Telepon/WA</label><input type="text" id="set-phone" class="form-control"></div>
+            <div class="mb-2"><label>Email Kontak</label><input type="text" id="set-email" class="form-control"></div>
+            <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// Menyesuaikan URL backend secara dinamis (Lokal atau Railway)
+const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:8080/api"
+    : "https://lkp-melati-api-production.up.railway.app/api";
+
+function switchTab(tab, evt) {
+    document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+    document.getElementById(`sec-${tab}`).classList.add('active');
+    if (evt) evt.target.classList.add('active');
+    loadData(tab);
+}
+
+async function loadData(entity) {
+    try {
+        if (entity === 'settings') {
+            const res = await fetch(`${API_URL}/settings`);
+            if(!res.ok) return;
+            const data = await res.json();
+            document.getElementById('set-title').value = data.siteTitle || data.namaSitus || '';
+            document.getElementById('set-hero').value = data.heroSubtitle || data.subJudul || '';
+            document.getElementById('set-phone').value = data.contactPhone || data.telepon || '';
+            document.getElementById('set-email').value = data.contactEmail || data.email || '';
+            return;
         }
 
-        function showToast(message, isError = false) {
-            const toastEl = document.getElementById('liveToast');
-            document.getElementById('toastMessage').innerText = message;
-            toastEl.classList.remove(isError ? 'bg-success' : 'bg-danger');
-            toastEl.classList.add(isError ? 'bg-danger' : 'bg-success');
-            new bootstrap.Toast(toastEl).show();
-        }
+        const res = await fetch(`${API_URL}/${entity}`);
+        if(!res.ok) return;
+        const data = await res.json();
+        const list = document.getElementById(`list-${entity}`);
+        list.innerHTML = '';
 
-        function logout() {
-            localStorage.removeItem('admin_token');
-            localStorage.removeItem('admin_username');
-            document.getElementById('dashboardScreen').style.display = 'none';
-            document.getElementById('loginScreen').style.display = 'flex';
-        }
-
-        // Kalau server balas 401/403, berarti sesi habis/tidak sah -> paksa logout
-        async function apiFetch(url, options = {}) {
-            const res = await fetch(API_BASE + url, { ...options, headers: authHeaders(options.headers || {}) });
-            if (res.status === 401 || res.status === 403) {
-                showToast('Sesi login berakhir, silakan login ulang.', true);
-                logout();
-                throw new Error('Unauthorized');
+        data.forEach(item => {
+            let row = '<tr>';
+            if (entity === 'courses') {
+                row += `<td>${item.namaProgram || item.title || '-'}</td><td>${item.jadwal || item.duration || '-'}</td><td>Rp ${item.harga || 0}</td>`;
+            } else if (entity === 'instructors') {
+                row += `<td><img src="${item.imageUrl || item.fotoUrl || 'https://via.placeholder.com/40'}" width="40" height="40" class="rounded-circle"></td><td>${item.name || item.nama}</td><td>${item.role || item.jabatan}</td>`;
+            } else if (entity === 'facilities') {
+                row += `<td>${item.title || item.namaFasilitas}</td><td>${item.description || item.deskripsi || '-'}</td>`;
+            } else if (entity === 'gallery') {
+                row += `<td>${item.type || item.tipe}</td><td>${item.title || item.judul}</td><td>${item.mediaUrl || item.url}</td>`;
+            } else if (entity === 'certificates') {
+                row += `<td>${item.title || item.namaSertifikat}</td><td>${item.issuedBy || item.penerbit}</td>`;
+            } else if (entity === 'testimonials') {
+                row += `<td>${item.name || item.namaAlumni}</td><td>${item.courseName || item.program}</td>`;
             }
-            return res;
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            const errBox = document.getElementById('loginError');
-            errBox.style.display = 'none';
-            try {
-                const res = await fetch(`${API_BASE}/api/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                if (!res.ok) {
-                    errBox.innerText = 'Username atau password salah.';
-                    errBox.style.display = 'block';
-                    return;
-                }
-                const data = await res.json();
-                if (!data.role || data.role !== 'ROLE_ADMIN') {
-                    errBox.innerText = 'Akun ini bukan akun admin.';
-                    errBox.style.display = 'block';
-                    return;
-                }
-                localStorage.setItem('admin_token', data.token);
-                localStorage.setItem('admin_username', data.username);
-                enterDashboard();
-            } catch (err) {
-                errBox.innerText = 'Gagal terhubung ke server.';
-                errBox.style.display = 'block';
-            }
+            row += `<td><button class="btn btn-danger btn-sm" onclick="deleteData('${entity}', ${item.id})">Hapus</button></td></tr>`;
+            list.innerHTML += row;
         });
+    } catch (err) {
+        console.error("Gagal memuat data " + entity, err);
+    }
+}
 
-        function enterDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboardScreen').style.display = 'block';
-            document.getElementById('whoami').innerText = localStorage.getItem('admin_username') || 'Admin Active';
-            loadSettings();
-        }
+async function deleteData(entity, id) {
+    if (confirm('Yakin ingin menghapus item ini?')) {
+        await fetch(`${API_URL}/${entity}/${id}`, { method: 'DELETE' });
+        loadData(entity);
+    }
+}
 
-        // ================= TAB SWITCH =================
-        function switchTab(tabName, event) {
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('[id^="section-"]').forEach(el => el.style.display = 'none');
-            const titles = { program: 'Kelola Program', galeri: 'Galeri Kegiatan', setting: 'Pengaturan Website' };
-            document.getElementById('section-' + tabName).style.display = 'block';
-            document.getElementById('page-title').innerText = titles[tabName];
-            if (tabName === 'program') loadProgram();
-            if (tabName === 'galeri') loadGallery();
-            if (tabName === 'setting') loadSettings();
-            if (event) event.currentTarget.classList.add('active');
-        }
+// Auto Bind Forms
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = form.id.replace('form-', '');
+        let payload = {};
 
-        // ================= SETTINGS =================
-        async function loadSettings() {
-            try {
-                const res = await fetch(`${API_BASE}/api/settings`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.siteName) document.getElementById('siteName').value = data.siteName;
-                    if (data.heroTitle) document.getElementById('heroTitle').value = data.heroTitle;
-                    if (data.whatsappNumber) document.getElementById('waNumber').value = data.whatsappNumber;
-                }
-            } catch (err) { console.error(err); }
-        }
-
-        document.getElementById('settingsForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const payload = {
-                siteName: document.getElementById('siteName').value,
-                heroTitle: document.getElementById('heroTitle').value,
-                whatsappNumber: document.getElementById('waNumber').value
+        if (id === 'course') {
+            payload = { 
+                namaProgram: document.getElementById('course-title').value, 
+                deskripsi: document.getElementById('course-desc').value, 
+                jadwal: document.getElementById('course-duration').value,
+                harga: parseFloat(document.getElementById('course-price').value) || 0 
             };
-            try {
-                const res = await apiFetch('/api/settings', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) showToast('Pengaturan website berhasil diperbarui!');
-                else showToast('Gagal memperbarui (Status: ' + res.status + ')', true);
-            } catch (err) { /* logout sudah ditangani di apiFetch */ }
-        });
-
-        // ================= PROGRAM =================
-        document.getElementById('programImageFile').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('file', file);
-            try {
-                const res = await apiFetch('/api/upload', { method: 'POST', body: formData });
-                const data = await res.json();
-                if (res.ok) {
-                    document.getElementById('programImageUrl').value = data.url;
-                    const preview = document.getElementById('programImagePreview');
-                    preview.src = data.url;
-                    preview.style.display = 'block';
-                } else {
-                    showToast(data.error || 'Gagal upload foto', true);
-                }
-            } catch (err) { console.error(err); }
-        });
-
-        document.getElementById('programVideoFile').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('file', file);
-            try {
-                const res = await apiFetch('/api/upload', { method: 'POST', body: formData });
-                const data = await res.json();
-                if (res.ok) {
-                    document.getElementById('programVideoUrl').value = data.url;
-                    const preview = document.getElementById('programVideoPreview');
-                    preview.src = data.url;
-                    preview.style.display = 'block';
-                } else {
-                    showToast(data.error || 'Gagal upload video', true);
-                }
-            } catch (err) { console.error(err); }
-        });
-
-        function resetProgramForm() {
-            document.getElementById('programForm').reset();
-            document.getElementById('programId').value = '';
-            document.getElementById('programImageUrl').value = '';
-            document.getElementById('programImagePreview').style.display = 'none';
-            document.getElementById('programVideoUrl').value = '';
-            document.getElementById('programVideoPreview').style.display = 'none';
-            document.getElementById('urutan').value = '0';
-            document.getElementById('programFormTitle').innerText = 'Tambah Program';
-            document.getElementById('cancelEditProgram').style.display = 'none';
+            await fetch(`${API_URL}/courses`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('courses');
+        } else if (id === 'instructor') {
+            payload = { name: document.getElementById('inst-name').value, role: document.getElementById('inst-role').value, imageUrl: document.getElementById('inst-image').value };
+            await fetch(`${API_URL}/instructors`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('instructors');
+        } else if (id === 'facility') {
+            payload = { title: document.getElementById('fac-title').value, description: document.getElementById('fac-desc').value };
+            await fetch(`${API_URL}/facilities`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('facilities');
+        } else if (id === 'gallery') {
+            payload = { title: document.getElementById('gal-title').value, type: document.getElementById('gal-type').value, mediaUrl: document.getElementById('gal-url').value };
+            await fetch(`${API_URL}/gallery`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('gallery');
+        } else if (id === 'cert') {
+            payload = { title: document.getElementById('cert-title').value, issuedBy: document.getElementById('cert-issuer').value, imageUrl: document.getElementById('cert-image').value };
+            await fetch(`${API_URL}/certificates`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('certificates');
+        } else if (id === 'testi') {
+            payload = { name: document.getElementById('testi-name').value, courseName: document.getElementById('testi-course').value, review: document.getElementById('testi-review').value };
+            await fetch(`${API_URL}/testimonials`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            loadData('testimonials');
+        } else if (id === 'setting') {
+            payload = { siteTitle: document.getElementById('set-title').value, heroSubtitle: document.getElementById('set-hero').value, contactPhone: document.getElementById('set-phone').value, contactEmail: document.getElementById('set-email').value };
+            await fetch(`${API_URL}/settings`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            alert('Pengaturan berhasil disimpan!');
         }
+        form.reset();
+    });
+});
 
-        document.getElementById('programForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('programId').value;
-            const payload = {
-                namaProgram: document.getElementById('namaProgram').value,
-                icon: document.getElementById('icon').value,
-                deskripsi: document.getElementById('deskripsi').value,
-                poin: document.getElementById('poin').value,
-                harga: parseFloat(document.getElementById('harga').value) || 0,
-                jadwal: document.getElementById('jadwal').value,
-                urutan: parseInt(document.getElementById('urutan').value) || 0,
-                imageUrl: document.getElementById('programImageUrl').value,
-                videoUrl: document.getElementById('programVideoUrl').value
-            };
-            try {
-                const res = await apiFetch(id ? `/api/program/${id}` : '/api/program', {
-                    method: id ? 'PUT' : 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    showToast('Program berhasil disimpan!');
-                    resetProgramForm();
-                    loadProgram();
-                } else {
-                    showToast('Gagal menyimpan program', true);
-                }
-            } catch (err) { console.error(err); }
-        });
-
-        function editProgram(item) {
-            document.getElementById('programId').value = item.id;
-            document.getElementById('namaProgram').value = item.namaProgram || '';
-            document.getElementById('icon').value = item.icon || '';
-            document.getElementById('deskripsi').value = item.deskripsi || '';
-            document.getElementById('poin').value = item.poin || '';
-            document.getElementById('harga').value = item.harga || '';
-            document.getElementById('jadwal').value = item.jadwal || '';
-            document.getElementById('urutan').value = item.urutan != null ? item.urutan : 0;
-            document.getElementById('programImageUrl').value = item.imageUrl || '';
-            const preview = document.getElementById('programImagePreview');
-            if (item.imageUrl) { preview.src = item.imageUrl; preview.style.display = 'block'; }
-            else { preview.style.display = 'none'; }
-            document.getElementById('programVideoUrl').value = item.videoUrl || '';
-            const videoPreview = document.getElementById('programVideoPreview');
-            if (item.videoUrl) { videoPreview.src = item.videoUrl; videoPreview.style.display = 'block'; }
-            else { videoPreview.style.display = 'none'; }
-            document.getElementById('programFormTitle').innerText = 'Edit Program';
-            document.getElementById('cancelEditProgram').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        async function deleteProgram(id) {
-            if (!confirm('Yakin ingin menghapus program ini?')) return;
-            try {
-                const res = await apiFetch(`/api/program/${id}`, { method: 'DELETE' });
-                if (res.ok) { showToast('Program berhasil dihapus'); loadProgram(); }
-            } catch (err) { console.error(err); }
-        }
-
-        let programCache = [];
-        async function loadProgram() {
-            try {
-                const res = await fetch(`${API_BASE}/api/program`);
-                const data = await res.json();
-                programCache = data;
-                document.getElementById('tableProgram').innerHTML = data.map(item => `
-                    <tr>
-                        <td>${item.imageUrl ? `<img src="${item.imageUrl}" class="prog-thumb">` : '<span class="text-muted small">-</span>'}</td>
-                        <td>${item.namaProgram || '-'}</td>
-                        <td>${item.poin ? '<span class="badge bg-primary-subtle text-primary">Detail (list)</span>' : '<span class="badge bg-secondary-subtle text-secondary">Ringkas</span>'}</td>
-                        <td>${item.videoUrl ? '<i class="bi bi-camera-video-fill text-success"></i>' : '<span class="text-muted small">-</span>'}</td>
-                        <td>${item.harga ? 'Rp ' + Number(item.harga).toLocaleString('id-ID') : '-'}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary me-1" onclick='editProgram(${JSON.stringify(item).replace(/'/g, "&apos;")})'><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteProgram(${item.id})"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-            } catch (err) { console.error(err); }
-        }
-
-        // ================= GALLERY =================
-        document.getElementById('galleryForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const fileInput = document.getElementById('galFile');
-            if (!fileInput.files[0]) return;
-            const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-            try {
-                const uploadRes = await apiFetch('/api/upload', { method: 'POST', body: formData });
-                const uploadData = await uploadRes.json();
-                if (!uploadRes.ok) { showToast(uploadData.error || 'Gagal upload file', true); return; }
-
-                const payload = {
-                    title: document.getElementById('galTitle').value,
-                    category: document.getElementById('galCategory').value,
-                    mediaUrl: uploadData.url,
-                    mediaType: uploadData.mediaType
-                };
-                const res = await apiFetch('/api/gallery', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    showToast('Berhasil ditambahkan ke galeri!');
-                    document.getElementById('galleryForm').reset();
-                    loadGallery();
-                } else {
-                    showToast('Gagal menyimpan ke galeri', true);
-                }
-            } catch (err) { console.error(err); }
-        });
-
-        async function deleteGalleryItem(id) {
-            if (!confirm('Yakin ingin menghapus item ini?')) return;
-            try {
-                const res = await apiFetch(`/api/gallery/${id}`, { method: 'DELETE' });
-                if (res.ok) { showToast('Item galeri berhasil dihapus'); loadGallery(); }
-            } catch (err) { console.error(err); }
-        }
-
-        async function loadGallery() {
-            try {
-                const res = await fetch(`${API_BASE}/api/gallery`);
-                const data = await res.json();
-                document.getElementById('galleryGrid').innerHTML = data.map(item => `
-                    <div class="col-md-4">
-                        <div class="card card-custom h-100">
-                            ${item.mediaType === 'VIDEO'
-                                ? `<video src="${item.mediaUrl}" class="gallery-thumb" controls></video>`
-                                : `<img src="${item.mediaUrl}" class="gallery-thumb">`}
-                            <div class="card-body p-2">
-                                <p class="fw-semibold small mb-1">${item.title || '-'}</p>
-                                <p class="text-muted small mb-2">${item.category || ''}</p>
-                                <button class="btn btn-sm btn-danger w-100" onclick="deleteGalleryItem(${item.id})"><i class="bi bi-trash"></i> Hapus</button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) { console.error(err); }
-        }
-
-        // ================= INIT =================
-        if (getToken()) {
-            enterDashboard();
-        }
-    </script>
+// Load default tab
+loadData('courses');
+</script>
 </body>
 </html>

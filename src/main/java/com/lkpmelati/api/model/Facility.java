@@ -1,3 +1,33 @@
+package com.lkpmelati.api.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "facilities")
 public class Facility {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    private String iconClass;
+
+    public Facility() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getIconClass() { return iconClass; }
+    public void setIconClass(String iconClass) { this.iconClass = iconClass; }
 }
