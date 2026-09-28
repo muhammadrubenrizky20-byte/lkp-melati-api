@@ -456,11 +456,18 @@
             animation: fadeInUp 0.5s ease both;
         }
  
-        /* WhatsApp Floating Button */
-        .whatsapp-float {
+        /* ===== Floating contact stack (IG + TikTok di atas, WhatsApp di bawah) ===== */
+        .floating-contact {
             position: fixed;
-            bottom: 30px;
+            bottom: 70px; /* dinaikkan supaya tidak tertutup badge Netlify */
             right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        .whatsapp-float {
             background-color: #25d366;
             color: white;
             padding: 14px 28px;
@@ -468,7 +475,6 @@
             text-decoration: none;
             font-weight: 700;
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -484,6 +490,33 @@
         }
         .whatsapp-float i {
             animation: bounceIcon 1.8s ease-in-out infinite;
+        }
+        .floating-social {
+            display: flex;
+            gap: 10px;
+        }
+        .floating-social a {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.3rem;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+        .floating-social a:hover {
+            transform: translateY(-4px) scale(1.08);
+            color: #fff;
+        }
+        .floating-social .fs-ig {
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+        }
+        .floating-social .fs-tt {
+            background: #000;
         }
  
         /* Footer */
@@ -601,7 +634,7 @@
     <div class="top-bar d-none d-lg-block">
         <div class="container d-flex justify-content-between align-items-center">
             <div>
-                <span class="me-4"><i class="bi bi-geo-alt-fill text-gold me-1"></i> Jl. Burangrang V No.181 Depok Timur II</span>
+                <span class="me-4"><i class="bi bi-geo-alt-fill text-gold me-1"></i> Jl. Burangrang V No.181 07/08, Abadijaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16417, Indonesia</span>
                 <span><i class="bi bi-telephone-fill text-gold me-1"></i> 0856-9543-4343</span>
             </div>
             <div>
@@ -1185,10 +1218,20 @@
         </div>
     </section>
  
-    <!-- Tombol WhatsApp Floating -->
-    <a href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20ingin%20bertanya%20mengenai%20pendaftaran%20kursus." class="whatsapp-float" target="_blank">
-        <i class="bi bi-whatsapp fs-4"></i> <span>Hubungi Kami</span>
-    </a>
+    <!-- Floating Contact: Instagram + TikTok di atas, WhatsApp di bawah -->
+    <div class="floating-contact">
+        <div class="floating-social">
+            <a href="https://www.instagram.com/melati.santina.utama?utm_source=qr" target="_blank" rel="noopener" class="fs-ig" aria-label="Instagram">
+                <i class="bi bi-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@melatisantina?_r=1&_t=ZS-99KaiY5NLM7" target="_blank" rel="noopener" class="fs-tt" aria-label="TikTok">
+                <i class="bi bi-tiktok"></i>
+            </a>
+        </div>
+        <a href="https://wa.me/6285695434343?text=Halo%20Melati%20Santina%20Utama,%20saya%20ingin%20bertanya%20mengenai%20pendaftaran%20kursus." class="whatsapp-float" target="_blank">
+            <i class="bi bi-whatsapp fs-4"></i> <span>Hubungi Kami</span>
+        </a>
+    </div>
  
     <!-- Tombol Back to Top -->
     <button id="backToTop" title="Kembali ke atas"><i class="bi bi-arrow-up"></i></button>
@@ -1197,7 +1240,7 @@
     <footer id="kontak">
         <div class="container text-center" data-aos="fade-up">
             <h3 class="text-white fw-bold mb-3">Melati Santina Utama</h3>
-            <p class="text-light mb-2"><i class="bi bi-geo-alt-fill text-gold me-2"></i> Jl. Burangrang V No.181 Depok Timur II Kota Depok</p>
+            <p class="text-light mb-2"><i class="bi bi-geo-alt-fill text-gold me-2"></i> Jl. Burangrang V No.181 07/08, Abadijaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16417, Indonesia</p>
             <p class="text-light mb-2"><i class="bi bi-telephone-fill text-gold me-2"></i> No. Telp/WA: 085695434343</p>
             <p class="text-light mb-4"><i class="bi bi-envelope-fill text-gold me-2"></i> Email: yayasanmelatisantinautama@gmail.com</p>
             <p class="text-light mb-4"><i class="bi bi-clock-fill text-gold me-2"></i> Jam Operasional: Senin s/d Sabtu dari Jam 09.00 s/d 18.00</p>
@@ -1275,9 +1318,8 @@
         if (Array.isArray(data) && data.length > 0) {
             grid.innerHTML = data.map(item => {
                 let mediaSrc = item.mediaUrl || '';
-              if (mediaSrc && !mediaSrc.startsWith('http')) {
-    // Menambahkan domain Railway jika path gambar bersifat relatif
-    mediaSrc = `https://lkp-melati-api-production.up.railway.app${mediaSrc.startsWith('/') ? '' : '/'}${mediaSrc}`;
+                if (mediaSrc && !mediaSrc.startsWith('http')) {
+                    mediaSrc = `./${mediaSrc}`;
                 }
 
                 return `
